@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,6 +20,15 @@ export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalP
   const [fullName, setFullName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        navigate({ to: '/dashboard' });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +49,7 @@ export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalP
     e.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -52,8 +61,13 @@ export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalP
         }
       });
       if (error) throw error;
-      toast.success('Cadastro realizado! Verifique seu email.');
-      navigate({ to: '/dashboard' });
+      
+      if (data?.session) {
+        toast.success('Cadastro realizado com sucesso!');
+        navigate({ to: '/dashboard' });
+      } else {
+        toast.info('Cadastro realizado! Por favor, verifique seu email para confirmar a conta.');
+      }
     } catch (error: any) {
       toast.error(error.message || 'Erro ao realizar cadastro');
     } finally {
