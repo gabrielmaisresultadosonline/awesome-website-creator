@@ -88,6 +88,7 @@ function AdminDashboard() {
             <CardContent className="space-y-4">
               <div className="flex gap-2">
                 <Input 
+                  key={settings?.['download_link'] || 'dl-empty'}
                   defaultValue={settings?.['download_link']} 
                   id="download-link-input"
                   placeholder="https://..." 
@@ -98,29 +99,56 @@ function AdminDashboard() {
                 }}>Salvar</Button>
               </div>
             </CardContent>
+
           </Card>
 
           <Card className="bg-white border-neutral-200">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Video className="w-5 h-5" /> Vídeo Tutorial (YouTube)
+                <Video className="w-5 h-5" /> Vídeos Tutoriais
               </CardTitle>
-              <CardDescription>URL de embed para o dashboard</CardDescription>
+              <CardDescription>Gerencie os vídeos da área de membros</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex gap-2">
-                <Input 
-                  defaultValue={settings?.['tutorials']?.[0]?.url} 
-                  id="tutorial-link-input"
-                  placeholder="https://www.youtube.com/embed/..." 
-                />
-                <Button onClick={() => {
-                  const val = (document.getElementById('tutorial-link-input') as HTMLInputElement).value;
-                  updateSettingMutation.mutate({ key: 'tutorials', value: [{ title: 'Como Instalar', url: val }] });
-                }}>Salvar</Button>
-              </div>
+              {(settings?.['tutorials'] || []).map((tut: any, index: number) => (
+                <div key={index} className="flex flex-col gap-2 p-3 border rounded-lg bg-neutral-50">
+                  <Input 
+                    placeholder="Título do Vídeo" 
+                    defaultValue={tut.title}
+                    onBlur={(e) => {
+                      if (!settings) return;
+                      const newTuts = [...(settings['tutorials'] || [])];
+                      newTuts[index].title = e.target.value;
+                      updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
+                    }}
+                  />
+                  <div className="flex gap-2">
+                    <Input 
+                      placeholder="URL Embed YouTube" 
+                      defaultValue={tut.url}
+                      onBlur={(e) => {
+                        if (!settings) return;
+                        const newTuts = [...(settings['tutorials'] || [])];
+                        newTuts[index].url = e.target.value;
+                        updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
+                      }}
+                    />
+                    <Button variant="destructive" size="icon" onClick={() => {
+                      if (!settings) return;
+                      const newTuts = settings['tutorials'].filter((_: any, i: number) => i !== index);
+                      updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
+                    }}><XCircle className="w-4 h-4" /></Button>
+                  </div>
+                </div>
+              ))}
+              <Button variant="outline" className="w-full" onClick={() => {
+                const newTuts = [...(settings?.['tutorials'] || []), { title: 'Novo Vídeo', url: '' }];
+                updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
+              }}>+ Adicionar Vídeo</Button>
             </CardContent>
+
           </Card>
+
         </section>
 
         {/* Stats */}
@@ -148,6 +176,8 @@ function AdminDashboard() {
                   <TableHead>Valor</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>NSU Pedido</TableHead>
+                  <TableHead>Checkout</TableHead>
+
                   <TableHead>Data</TableHead>
                 </TableRow>
               </TableHeader>
@@ -166,6 +196,10 @@ function AdminDashboard() {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-xs font-mono">{tx.order_nsu}</TableCell>
+                    <TableCell>
+                      <Button variant="link" size="sm" onClick={() => window.open(tx.payment_link, '_blank')}>Abrir</Button>
+                    </TableCell>
+
                     <TableCell className="text-xs">{new Date(tx.created_at).toLocaleString()}</TableCell>
                   </TableRow>
                 ))}

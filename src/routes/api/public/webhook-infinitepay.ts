@@ -46,18 +46,20 @@ export const Route = createFileRoute('/api/public/webhook-infinitepay')({
             .eq("id", transaction.id);
 
           // 3. Activate or Extend Subscription
+          const planDays = transaction.plan_duration_days;
           const expiresAt = new Date();
-          expiresAt.setDate(expiresAt.getDate() + transaction.plan_duration_days);
+          expiresAt.setDate(expiresAt.getDate() + planDays);
 
           // Upsert subscription
           const { error: subError } = await supabaseAdmin
             .from("subscriptions")
             .upsert({
               user_id: transaction.user_id,
-              type: transaction.plan_duration_days >= 365 ? 'annual' : 'paid',
+              type: planDays >= 365 ? 'annual' : 'paid',
               status: 'active',
               expires_at: expiresAt.toISOString(),
             }, { onConflict: 'user_id' });
+
 
           if (subError) {
             console.error("Error updating subscription:", subError);
