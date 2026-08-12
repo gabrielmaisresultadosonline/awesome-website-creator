@@ -109,7 +109,7 @@ function Index() {
               </Button>
             </DialogTrigger>
             <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
-              <AuthModal initialMode="signup" isTrial={true} />
+              <AuthModal initialMode="signup" isTrial={true} lang="en" />
             </DialogContent>
           </Dialog>
           
