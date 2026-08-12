@@ -142,8 +142,8 @@ function Index() {
       <section className="py-24 bg-white/30 backdrop-blur-sm border-y border-[#D8D0C8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#1A1B1A] mb-4">Por que escolher o LOVABLACK?</h2>
-            <p className="text-[#4F4E4D]">Tudo o que você precisa para usar o Lovable de graça e ilimitado.</p>
+            <h2 className="text-4xl font-bold text-[#1A1B1A] mb-4">Why choose LOVABLACK?</h2>
+            <p className="text-[#4F4E4D]">Everything you need to use Lovable for free and unlimited.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((b, i) => (
