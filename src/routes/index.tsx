@@ -62,11 +62,11 @@ function Index() {
       popular: true
     },
     { 
-      name: "Vitalício", 
+      name: "Anual", 
       price: "R$ 397", 
-      period: "pagamento único", 
-      features: ["Acesso para sempre", "Todas atualizações", "Hospedagem inclusa", "Suporte VIP"],
-      button: "ACESSO VITALÍCIO",
+      period: "365 dias", 
+      features: ["Acesso total", "Todas atualizações", "Hospedagem inclusa", "Suporte VIP"],
+      button: "ASSINAR ANUAL",
       popular: false
     }
   ];
