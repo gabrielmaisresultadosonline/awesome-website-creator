@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Shield, Zap, MessageSquare, FileText, Mic, Sparkles, PlusCircle, Eraser, Globe, Star, Clock, Heart, Users, ShieldCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -78,7 +78,9 @@ function Index() {
       {/* Hero Section */}
       <header className="container mx-auto px-4 pt-20 pb-16 text-center">
         <div className="flex justify-center mb-8">
-          <img src={logoFull.url} alt="LOVABLACK Logo" className="h-32 md:h-48 object-contain" />
+          <Link to="/">
+            <img src={logoFull.url} alt="LOVABLACK Logo" className="h-32 md:h-48 object-contain cursor-pointer hover:scale-105 transition-transform" />
+          </Link>
         </div>
         <Badge variant="outline" className="mb-6 border-primary/20 text-primary px-4 py-1">
           🚀 O NOVO LOVABLACK CHEGOU
