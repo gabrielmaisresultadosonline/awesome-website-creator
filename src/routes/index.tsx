@@ -11,11 +11,11 @@ import logoFull from "@/assets/logo-full.png.asset.json";
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
-    title: "LOVABLACK | Extensão Lovable Ilimitada",
+    title: "não gaste créditos com IA lovable ! Utilize Lovablack Extensao e tenha créditos infinitos.",
     meta: [
-      { name: "description", content: "Use Lovable ilimitado e grátis com a extensão LOVABLACK. Sem créditos, velocidade máxima e hospedagem inclusa." },
-      { property: "og:title", content: "LOVABLACK | Extensão Lovable Ilimitada" },
-      { property: "og:description", content: "O fim dos limites de créditos no Lovable. Crie sem restrições." }
+      { name: "description", content: "Não gaste créditos com IA lovable. Utilize Lovablack Extensao e tenha créditos infinitos. Crie sem restrições com a melhor extensão do mercado." },
+      { property: "og:title", content: "não gaste créditos com IA lovable ! Utilize Lovablack Extensao e tenha créditos infinitos." },
+      { property: "og:description", content: "O fim dos limites de créditos no Lovable. Utilize Lovablack Extensao e tenha créditos infinitos." }
     ]
   })
 });
