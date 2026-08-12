@@ -15,8 +15,9 @@ interface AuthModalProps {
     planName: string;
     priceCents: number;
     planDurationDays: number;
-  };
+  } | undefined;
 }
+
 
 export function AuthModal({ initialMode = 'login', isTrial = false, onSuccessRedirect }: AuthModalProps) {
   const [loading, setLoading] = useState(false);
