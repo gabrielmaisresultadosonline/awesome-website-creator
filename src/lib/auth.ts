@@ -43,3 +43,18 @@ export const isAdmin = async (userId: string) => {
   if (error) return false;
   return !!data;
 };
+
+export const getAppSettings = async () => {
+  const { data, error } = await supabase
+    .from('app_settings')
+    .select('*');
+
+  if (error) throw error;
+  
+  const settings: Record<string, any> = {};
+  data.forEach(item => {
+    settings[item.key] = item.value;
+  });
+  
+  return settings;
+};

@@ -1,12 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useQuery } from '@tanstack/react-query';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { getSubscriptionStatus, getProfile } from '@/lib/auth';
+import { getSubscriptionStatus, getProfile, getAppSettings } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, PlayCircle, Clock, AlertTriangle, CreditCard } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Download, PlayCircle, Clock, AlertTriangle, CreditCard, Check } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useEffect, useState } from 'react';
+import { createPaymentLink } from '@/lib/payments.functions';
+import { toast } from 'sonner';
 
 export const Route = createFileRoute('/_authenticated/dashboard')({
   component: Dashboard,
@@ -14,6 +16,7 @@ export const Route = createFileRoute('/_authenticated/dashboard')({
 
 function Dashboard() {
   const [timeLeft, setTimeLeft] = useState<string>('');
+  const navigate = useNavigate();
 
   const { data: user } = useQuery({
     queryKey: ['user'],
@@ -33,7 +36,23 @@ function Dashboard() {
     queryKey: ['subscription', user?.id],
     queryFn: () => getSubscriptionStatus(user!.id),
     enabled: !!user,
-    refetchInterval: 10000 // Refetch every 10s to check for expiry
+    refetchInterval: 5000 
+  });
+
+  const { data: settings } = useQuery({
+    queryKey: ['app-settings'],
+    queryFn: getAppSettings
+  });
+
+  const paymentMutation = useMutation({
+    mutationFn: (data: any) => createPaymentLink({ data }),
+    onSuccess: (data: any) => {
+      window.open(data.url, '_blank');
+      toast.success("Link de pagamento gerado! Finalize a compra para liberar seu acesso.");
+    },
+    onError: () => {
+      toast.error("Erro ao gerar pagamento. Tente novamente.");
+    }
   });
 
   useEffect(() => {
@@ -59,109 +78,142 @@ function Dashboard() {
     };
   }, [sub]);
 
+  useEffect(() => {
+    const pendingPayment = sessionStorage.getItem('lovablack_pending_payment');
+    if (pendingPayment && profile) {
+      const plan = JSON.parse(pendingPayment);
+      handlePayment(plan);
+      sessionStorage.removeItem('lovablack_pending_payment');
+    }
+  }, [profile]);
+
   if (!user) return null;
+
 
   const isActive = sub && sub.status === 'active' && !sub.isExpired;
 
+  const plans = [
+    { name: "Mensal", price: "R$ 47", cents: 4700, days: 30 },
+    { name: "Semestral", price: "R$ 147", cents: 14700, days: 180 },
+    { name: "Anual", price: "R$ 397", cents: 39700, days: 365 },
+  ];
+
+  const handlePayment = (plan: any) => {
+    const origin = window.location.origin;
+    paymentMutation.mutate({
+      planName: plan.name,
+      priceCents: plan.cents,
+      planDurationDays: plan.days,
+      customerName: profile?.full_name || user.email || 'Cliente',
+      customerEmail: user.email || '',
+      customerPhone: profile?.whatsapp || '',
+      redirectUrl: `${origin}/dashboard?payment=success`,
+      webhookUrl: `${origin}/api/public/webhook-infinitepay`,
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-[#F7F1EB] p-4 md:p-8">
+    <div className="min-h-screen bg-[#F7F1EB] p-4 md:p-8 pb-20">
       <div className="max-w-6xl mx-auto space-y-8">
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-3xl font-bold text-[#1A1B1A]">Bem-vindo, {profile?.full_name || user.email}</h1>
-            <p className="text-neutral-500">Painel do Membro LOVABLACK</p>
+            <p className="text-neutral-500">Área de Membros LOVABLACK</p>
           </div>
           <Button variant="outline" onClick={() => supabase.auth.signOut()}>Sair</Button>
         </header>
 
-        {!sub && (
-          <Card className="border-red-200 bg-red-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-red-700">
-                <AlertTriangle /> Nenhuma Assinatura Ativa
-              </CardTitle>
-              <CardDescription className="text-red-600">
-                Você ainda não possui um plano ativo ou teste grátis.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button onClick={() => window.location.href = '/#pricing'} className="bg-[#DC0D0D]">Escolher Plano</Button>
-            </CardContent>
-          </Card>
-        )}
-
-        {sub && sub.isExpired && (
-          <Card className="border-orange-200 bg-orange-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-orange-700">
-                <Clock /> Acesso Expirado
-              </CardTitle>
-              <CardDescription className="text-orange-600">
-                Seu tempo de {sub.type === 'trial' ? 'teste' : 'assinatura'} acabou.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button onClick={() => window.location.href = '/#pricing'} className="bg-[#1A1B1A]">Renovar Acesso</Button>
-            </CardContent>
-          </Card>
-        )}
-
-        {isActive && (
+        {isActive ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-white border-neutral-200 shadow-sm">
-              <CardHeader>
+            <Card className="bg-white border-neutral-200 shadow-sm overflow-hidden">
+              <CardHeader className="bg-[#1A1B1A] text-white">
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle className="text-2xl font-bold">Extensão LOVABLACK</CardTitle>
-                    <CardDescription>Versão mais recente disponível</CardDescription>
+                    <CardDescription className="text-neutral-400">Clique abaixo para baixar</CardDescription>
                   </div>
-                  <Badge className={sub.type === 'trial' ? 'bg-[#DC0D0D]' : 'bg-[#1A1B1A]'}>
-                    {sub.type === 'trial' ? 'TESTE GRÁTIS' : 'PLANO ATIVO'}
-                  </Badge>
+                  <Badge className="bg-[#DC0D0D]">ATIVO</Badge>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="p-6 space-y-6">
                 {sub.type === 'trial' && (
                   <div className="p-4 bg-[#F7F1EB] rounded-2xl flex items-center justify-between">
                     <span className="text-sm font-bold text-[#4F4E4D]">Tempo Restante:</span>
                     <span className="text-2xl font-black text-[#DC0D0D]">{timeLeft}</span>
                   </div>
                 )}
-                <Button className="w-full h-16 text-lg font-bold bg-[#1A1B1A] gap-3">
+                <Button 
+                  className="w-full h-16 text-lg font-bold bg-[#1A1B1A] gap-3"
+                  onClick={() => window.open(settings?.['download_link'] || '#', '_blank')}
+                >
                   <Download className="w-6 h-6" /> BAIXAR EXTENSÃO (.ZIP)
                 </Button>
-                <p className="text-xs text-center text-neutral-400">Compatível com Chrome, Brave, Edge e Opera.</p>
+                <p className="text-xs text-center text-neutral-400">Instalação via modo desenvolvedor do navegador.</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-neutral-200 shadow-sm">
+            <Card className="bg-white border-neutral-200 shadow-sm overflow-hidden">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold">Tutorial de Uso</CardTitle>
-                <CardDescription>Aprenda a instalar e usar em 2 minutos</CardDescription>
+                <CardTitle className="text-2xl font-bold">Tutorial de Instalação</CardTitle>
+                <CardDescription>Siga o passo a passo em vídeo</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="aspect-video bg-neutral-900 rounded-2xl flex items-center justify-center relative group cursor-pointer overflow-hidden">
-                  <PlayCircle className="w-16 h-16 text-white opacity-50 group-hover:opacity-100 transition-opacity" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <span className="absolute bottom-4 left-4 text-white font-bold text-sm">COMO INSTALAR O LOVABLACK</span>
+              <CardContent className="p-0">
+                <div className="aspect-video bg-neutral-900 flex items-center justify-center">
+                  {settings?.['tutorials']?.[0]?.url ? (
+                    <iframe 
+                      src={settings['tutorials'][0].url} 
+                      className="w-full h-full" 
+                      allowFullScreen 
+                      title="Tutorial"
+                    />
+                  ) : (
+                    <PlayCircle className="w-16 h-16 text-white/20" />
+                  )}
                 </div>
               </CardContent>
             </Card>
           </div>
+        ) : (
+          <Card className="border-red-200 bg-red-50 p-6 text-center">
+            <AlertTriangle className="w-12 h-12 text-red-600 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-red-900">Seu acesso expirou ou não está ativo</h2>
+            <p className="text-red-700 mb-6">Escolha um dos planos abaixo para continuar usando créditos infinitos.</p>
+          </Card>
         )}
 
-        {isActive && sub.type === 'trial' && (
-          <Card className="bg-gradient-to-r from-[#DC0D0D] to-[#650000] text-white border-0">
-            <CardHeader>
-              <CardTitle>Gostou do LOVABLACK?</CardTitle>
-              <CardDescription className="text-white/80">Garanta acesso ilimitado sem limite de tempo.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button className="bg-white text-[#DC0D0D] hover:bg-neutral-100 font-bold" onClick={() => window.location.href = '/#pricing'}>
-                <CreditCard className="w-4 h-4 mr-2" /> VER PLANOS ILIMITADOS
-              </Button>
-            </CardContent>
-          </Card>
+        {(!isActive || sub?.type !== 'annual') && (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-[#1A1B1A] flex items-center gap-2">
+              <CreditCard className="text-[#DC0D0D]" /> Desbloquear Acesso Ilimitado
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {plans.map((plan) => (
+                <Card key={plan.name} className="bg-white border-neutral-200 relative overflow-hidden group hover:border-[#DC0D0D] transition-colors">
+                  <CardHeader>
+                    <CardTitle>{plan.name}</CardTitle>
+                    <CardDescription>{plan.days} dias de acesso</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-black text-[#1A1B1A]">{plan.price}</div>
+                    <ul className="mt-4 space-y-2">
+                      <li className="flex items-center gap-2 text-sm text-neutral-600"><Check className="w-4 h-4 text-green-500" /> Créditos Infinitos</li>
+                      <li className="flex items-center gap-2 text-sm text-neutral-600"><Check className="w-4 h-4 text-green-500" /> Hospedagem Grátis</li>
+                      <li className="flex items-center gap-2 text-sm text-neutral-600"><Check className="w-4 h-4 text-green-500" /> Suporte VIP</li>
+                    </ul>
+                  </CardContent>
+                  <CardFooter>
+                    <Button 
+                      className="w-full bg-[#1A1B1A] hover:bg-[#DC0D0D] transition-colors font-bold"
+                      onClick={() => handlePayment(plan)}
+                      disabled={paymentMutation.isPending}
+                    >
+                      {paymentMutation.isPending ? 'GERANDO...' : 'GARANTIR AGORA'}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </div>
