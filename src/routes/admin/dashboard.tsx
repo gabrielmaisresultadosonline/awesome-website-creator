@@ -88,6 +88,7 @@ function AdminDashboard() {
             <CardContent className="space-y-4">
               <div className="flex gap-2">
                 <Input 
+                  key={settings?.['download_link'] || 'dl-empty'}
                   defaultValue={settings?.['download_link']} 
                   id="download-link-input"
                   placeholder="https://..." 
@@ -98,6 +99,7 @@ function AdminDashboard() {
                 }}>Salvar</Button>
               </div>
             </CardContent>
+
           </Card>
 
           <Card className="bg-white border-neutral-200">
@@ -114,7 +116,8 @@ function AdminDashboard() {
                     placeholder="Título do Vídeo" 
                     defaultValue={tut.title}
                     onBlur={(e) => {
-                      const newTuts = [...settings['tutorials']];
+                      if (!settings) return;
+                      const newTuts = [...(settings['tutorials'] || [])];
                       newTuts[index].title = e.target.value;
                       updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
                     }}
@@ -124,12 +127,14 @@ function AdminDashboard() {
                       placeholder="URL Embed YouTube" 
                       defaultValue={tut.url}
                       onBlur={(e) => {
-                        const newTuts = [...settings['tutorials']];
+                        if (!settings) return;
+                        const newTuts = [...(settings['tutorials'] || [])];
                         newTuts[index].url = e.target.value;
                         updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
                       }}
                     />
                     <Button variant="destructive" size="icon" onClick={() => {
+                      if (!settings) return;
                       const newTuts = settings['tutorials'].filter((_: any, i: number) => i !== index);
                       updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
                     }}><XCircle className="w-4 h-4" /></Button>
@@ -141,6 +146,7 @@ function AdminDashboard() {
                 updateSettingMutation.mutate({ key: 'tutorials', value: newTuts });
               }}>+ Adicionar Vídeo</Button>
             </CardContent>
+
           </Card>
 
         </section>

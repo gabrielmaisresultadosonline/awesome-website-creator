@@ -25,11 +25,12 @@ export const createPaymentLink = createServerFn({ method: "POST" })
     }
 
     const handle = "paguemro";
-    const orderNsu = `order-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const nsu = `order-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
     const payload = {
       handle,
-      order_nsu: orderNsu,
+      order_nsu: nsu,
+
       redirect_url: data.redirectUrl,
       webhook_url: data.webhookUrl,
       customer: {
@@ -63,7 +64,7 @@ export const createPaymentLink = createServerFn({ method: "POST" })
 
     await supabaseAdmin.from("infinitepay_transactions").insert({
       user_id: user.id,
-      order_nsu: orderNsu,
+      order_nsu: nsu,
       amount: data.priceCents,
       plan_name: data.planName,
       plan_duration_days: data.planDurationDays,

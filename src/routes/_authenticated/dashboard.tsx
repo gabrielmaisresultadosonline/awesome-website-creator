@@ -154,24 +154,30 @@ function Dashboard() {
 
             <Card className="bg-white border-neutral-200 shadow-sm overflow-hidden">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold">Tutorial de Instalação</CardTitle>
+                <CardTitle className="text-2xl font-bold">Vídeos Tutoriais</CardTitle>
                 <CardDescription>Siga o passo a passo em vídeo</CardDescription>
               </CardHeader>
-              <CardContent className="p-0">
-                <div className="aspect-video bg-neutral-900 flex items-center justify-center">
-                  {settings?.['tutorials']?.[0]?.url ? (
-                    <iframe 
-                      src={settings['tutorials'][0].url} 
-                      className="w-full h-full" 
-                      allowFullScreen 
-                      title="Tutorial"
-                    />
-                  ) : (
-                    <PlayCircle className="w-16 h-16 text-white/20" />
-                  )}
-                </div>
+              <CardContent className="p-0 space-y-4">
+                {(settings?.['tutorials'] || []).map((tut: any, index: number) => (
+                  <div key={index} className="space-y-2 p-4">
+                    <h3 className="font-bold flex items-center gap-2"><PlayCircle className="w-4 h-4" /> {tut.title}</h3>
+                    <div className="aspect-video bg-neutral-900 flex items-center justify-center rounded-xl overflow-hidden border">
+                      {tut.url ? (
+                        <iframe 
+                          src={tut.url} 
+                          className="w-full h-full" 
+                          allowFullScreen 
+                          title={tut.title}
+                        />
+                      ) : (
+                        <PlayCircle className="w-16 h-16 text-white/20" />
+                      )}
+                    </div>
+                  </div>
+                ))}
               </CardContent>
             </Card>
+
           </div>
         ) : (
           <Card className="border-red-200 bg-red-50 p-6 text-center">
