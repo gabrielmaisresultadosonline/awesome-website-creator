@@ -72,7 +72,7 @@ function Index() {
   ];
 
   return (
-    <div className="min-h-screen font-sans selection:bg-primary/20" style={{ backgroundColor: "#FFFDF5" }}>
+    <div className="min-h-screen font-sans selection:bg-primary/20" style={{ backgroundColor: "#F7F1EB" }}>
       {/* Hero Section */}
       <header className="container mx-auto px-4 pt-20 pb-16 text-center">
         <div className="flex justify-center mb-8">
