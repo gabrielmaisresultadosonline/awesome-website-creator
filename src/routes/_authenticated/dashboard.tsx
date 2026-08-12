@@ -78,7 +78,17 @@ function Dashboard() {
     };
   }, [sub]);
 
+  useEffect(() => {
+    const pendingPayment = sessionStorage.getItem('lovablack_pending_payment');
+    if (pendingPayment && profile) {
+      const plan = JSON.parse(pendingPayment);
+      handlePayment(plan);
+      sessionStorage.removeItem('lovablack_pending_payment');
+    }
+  }, [profile]);
+
   if (!user) return null;
+
 
   const isActive = sub && sub.status === 'active' && !sub.isExpired;
 
