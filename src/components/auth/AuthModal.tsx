@@ -40,7 +40,7 @@ export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalP
     e.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -52,8 +52,13 @@ export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalP
         }
       });
       if (error) throw error;
-      toast.success('Cadastro realizado! Verifique seu email.');
-      navigate({ to: '/dashboard' });
+      
+      if (data?.session) {
+        toast.success('Cadastro realizado com sucesso!');
+        navigate({ to: '/dashboard' });
+      } else {
+        toast.info('Cadastro realizado! Por favor, verifique seu email para confirmar a conta.');
+      }
     } catch (error: any) {
       toast.error(error.message || 'Erro ao realizar cadastro');
     } finally {
