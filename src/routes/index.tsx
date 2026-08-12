@@ -246,9 +246,16 @@ function Index() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-[#1A1B1A] hover:bg-[#080808] text-white shadow-lg shadow-[#D8D0C8]' : 'bg-[#F7F1EB] text-[#1A1B1A] hover:bg-[#D8D0C8] shadow-none border border-[#D8D0C8]'}`}>
-                    {plan.button}
-                  </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-[#1A1B1A] hover:bg-[#080808] text-white shadow-lg shadow-[#D8D0C8]' : 'bg-[#F7F1EB] text-[#1A1B1A] hover:bg-[#D8D0C8] shadow-none border border-[#D8D0C8]'}`}>
+                        {plan.button}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
+                      <AuthModal initialMode="signup" isTrial={plan.name === "Teste Grátis"} />
+                    </DialogContent>
+                  </Dialog>
                 </CardFooter>
               </Card>
             ))}
@@ -293,9 +300,16 @@ function Index() {
            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#DC0D0D]/10 blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
            <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10 leading-tight">Quantos projetos você deixou de criar por falta de créditos?</h2>
            <p className="text-xl text-neutral-400 mb-12 relative z-10 max-w-2xl mx-auto">Isso acaba agora. Lovable ilimitado é realidade com <b>LOVABLACK</b>. Crie, teste e hospede sem restrições.</p>
-           <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-[#DC0D0D] text-white hover:bg-[#FF0000] transition-all hover:scale-105 relative z-10 shadow-[0_0_30px_rgba(220,13,13,0.3)] border-0">
-              🔥 QUERO MEU LOVABLACK AGORA
-           </Button>
+           <Dialog>
+             <DialogTrigger asChild>
+               <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-[#DC0D0D] text-white hover:bg-[#FF0000] transition-all hover:scale-105 relative z-10 shadow-[0_0_30px_rgba(220,13,13,0.3)] border-0">
+                  🔥 QUERO MEU LOVABLACK AGORA
+               </Button>
+             </DialogTrigger>
+             <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
+               <AuthModal initialMode="signup" />
+             </DialogContent>
+           </Dialog>
         </div>
         <div className="mt-20 pt-8 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-center gap-6 text-neutral-400 text-sm">
            <p>© 2026 LOVABLACK. Todos os direitos reservados.</p>
