@@ -14,6 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_settings: {
+        Row: {
+          id: string
+          key: string
+          updated_at: string | null
+          value: Json
+        }
+        Insert: {
+          id?: string
+          key: string
+          updated_at?: string | null
+          value: Json
+        }
+        Update: {
+          id?: string
+          key?: string
+          updated_at?: string | null
+          value?: Json
+        }
+        Relationships: []
+      }
+      infinitepay_transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          id: string
+          invoice_slug: string | null
+          order_nsu: string
+          payment_link: string | null
+          plan_duration_days: number
+          plan_name: string
+          status: string | null
+          transaction_nsu: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          id?: string
+          invoice_slug?: string | null
+          order_nsu: string
+          payment_link?: string | null
+          plan_duration_days: number
+          plan_name: string
+          status?: string | null
+          transaction_nsu?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          id?: string
+          invoice_slug?: string | null
+          order_nsu?: string
+          payment_link?: string | null
+          plan_duration_days?: number
+          plan_name?: string
+          status?: string | null
+          transaction_nsu?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
