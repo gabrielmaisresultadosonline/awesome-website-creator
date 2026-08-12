@@ -331,7 +331,7 @@ function Index() {
                </Button>
              </DialogTrigger>
              <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
-               <AuthModal initialMode="signup" />
+               <AuthModal initialMode="signup" lang="en" />
              </DialogContent>
            </Dialog>
         </div>
