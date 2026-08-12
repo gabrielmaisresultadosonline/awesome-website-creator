@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Shield, Zap, MessageSquare, FileText, Mic, Sparkles, PlusCircle, Eraser, Globe, Star, Clock, Heart, Users, ShieldCheck } from "lucide-react";
+import { Check, Shield, Zap, MessageSquare, FileText, Mic, Sparkles, PlusCircle, Eraser, Globe, Star, Clock, Heart, Users, ShieldCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import logoHeart from "@/assets/logo-heart.png.asset.json";
 import logoFull from "@/assets/logo-full.png.asset.json";
 
