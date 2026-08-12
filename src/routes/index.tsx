@@ -79,6 +79,8 @@ function Index() {
           <img src={logoFull.url} alt="LOVABLACK Logo" className="h-20 md:h-28 object-contain" />
         </div>
         <Badge variant="outline" className="mb-6 border-primary/20 text-primary px-4 py-1">
+          🚀 O NOVO LOVABLACK CHEGOU
+        </Badge>
         <p className="text-xl md:text-2xl text-neutral-600 max-w-3xl mx-auto mb-10 leading-relaxed">
           Prepare-se para aproveitar uma experiência aprimorada e <span className="text-neutral-900 font-bold italic underline decoration-primary/30">ilimitada</span>. 
           A melhor ferramenta do mercado está de volta!
