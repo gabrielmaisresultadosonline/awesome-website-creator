@@ -131,9 +131,9 @@ function Index() {
           <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl flex items-center justify-between border border-white/20 shadow-xl">
              <div className="flex items-center gap-3">
                <div className="w-3 h-3 rounded-full bg-[#DC0D0D] animate-ping"></div>
-               <p className="text-sm md:text-base font-black text-[#1A1B1A] tracking-tight">🚀 ESSE SITE FOI FEITO INTEIRAMENTE POR ESSA EXTENSÃO</p>
+                <p className="text-sm md:text-base font-black text-[#1A1B1A] tracking-tight">🚀 THIS SITE WAS MADE ENTIRELY BY THIS EXTENSION</p>
              </div>
-             <Badge className="bg-[#DC0D0D] text-white border-0 px-4 py-1 font-bold">100% GRÁTIS</Badge>
+             <Badge className="bg-[#DC0D0D] text-white border-0 px-4 py-1 font-bold">100% FREE</Badge>
           </div>
         </div>
       </header>
