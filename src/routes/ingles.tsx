@@ -226,10 +226,10 @@ function Index() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-neutral-100 px-4 py-2 rounded-full mb-6">
               <Users className="w-4 h-4 text-neutral-500" />
-              <span className="text-sm font-bold text-neutral-600">47 pessoas estão vendo esta página agora</span>
+              <span className="text-sm font-bold text-neutral-600">47 people are viewing this page right now</span>
             </div>
-            <h2 className="text-4xl font-bold mb-4">Desbloqueie o LOVABLACK</h2>
-            <p className="text-neutral-600">Escolha o plano ideal e comece a criar sem limites hoje.</p>
+            <h2 className="text-4xl font-bold mb-4">Unlock LOVABLACK</h2>
+            <p className="text-neutral-600">Choose the ideal plan and start creating without limits today.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
