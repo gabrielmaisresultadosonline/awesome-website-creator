@@ -163,8 +163,8 @@ function Index() {
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-20">
-            <h2 className="text-4xl font-bold mb-6">Tudo que a extensão faz por você</h2>
-            <p className="text-neutral-600">Funcionalidades premium que tornam o Lovable ilimitado e profissional.</p>
+            <h2 className="text-4xl font-bold mb-6">Everything the extension does for you</h2>
+            <p className="text-neutral-600">Premium features that make Lovable unlimited and professional.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {features.map((f, i) => (
