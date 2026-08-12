@@ -76,7 +76,7 @@ function Index() {
       {/* Hero Section */}
       <header className="container mx-auto px-4 pt-20 pb-16 text-center">
         <div className="flex justify-center mb-8">
-          <img src={logoFull.url} alt="LOVABLACK Logo" className="h-20 md:h-28 object-contain" />
+          <img src={logoFull.url} alt="LOVABLACK Logo" className="h-32 md:h-48 object-contain" />
         </div>
         <Badge variant="outline" className="mb-6 border-primary/20 text-primary px-4 py-1">
           🚀 O NOVO LOVABLACK CHEGOU
