@@ -119,20 +119,20 @@ function Index() {
       </header>
 
       {/* Benefits */}
-      <section className="py-24 bg-white/50 border-y border-neutral-100">
+      <section className="py-24 bg-white/30 backdrop-blur-sm border-y border-[#D8D0C8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-neutral-900 mb-4">Por que escolher o LOVABLACK?</h2>
-            <p className="text-neutral-600">Tudo o que você precisa para usar o Lovable de graça e ilimitado.</p>
+            <h2 className="text-4xl font-bold text-[#1A1B1A] mb-4">Por que escolher o LOVABLACK?</h2>
+            <p className="text-[#4F4E4D]">Tudo o que você precisa para usar o Lovable de graça e ilimitado.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((b, i) => (
-              <div key={i} className="p-8 rounded-3xl bg-white border border-neutral-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="w-12 h-12 rounded-2xl bg-neutral-50 flex items-center justify-center mb-6 text-neutral-900 group-hover:bg-primary group-hover:text-white transition-colors">
-                  <b.icon className="w-6 h-6" />
+              <div key={i} className="p-8 rounded-3xl bg-white border border-[#D8D0C8] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+                <div className="w-14 h-14 rounded-2xl bg-[#F7F1EB] flex items-center justify-center mb-6 text-[#1A1B1A] group-hover:bg-[#DC0D0D] group-hover:text-white transition-all duration-300 shadow-sm">
+                  <b.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{b.title}</h3>
-                <p className="text-neutral-500 text-sm leading-relaxed">{b.desc}</p>
+                <h3 className="text-xl font-bold mb-3 text-[#1A1B1A] group-hover:text-[#DC0D0D] transition-colors">{b.title}</h3>
+                <p className="text-[#4F4E4D] text-sm leading-relaxed">{b.desc}</p>
               </div>
             ))}
           </div>
@@ -279,10 +279,11 @@ function Index() {
       {/* Footer CTA */}
       <footer className="py-24 text-center container mx-auto px-4">
         <div className="max-w-4xl mx-auto bg-neutral-900 text-white p-12 md:p-20 rounded-[4rem] relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-           <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10">Quantos projetos você deixou de criar por falta de créditos?</h2>
-           <p className="text-xl text-neutral-400 mb-12 relative z-10">Isso acaba agora. Lovable ilimitado é realidade com LOVABLACK.</p>
-           <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-white text-neutral-900 hover:bg-neutral-100 transition-all hover:scale-105 relative z-10">
+           <div className="absolute top-0 right-0 w-64 h-64 bg-[#DC0D0D]/20 blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+           <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#DC0D0D]/10 blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+           <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10 leading-tight">Quantos projetos você deixou de criar por falta de créditos?</h2>
+           <p className="text-xl text-neutral-400 mb-12 relative z-10 max-w-2xl mx-auto">Isso acaba agora. Lovable ilimitado é realidade com <b>LOVABLACK</b>. Crie, teste e hospede sem restrições.</p>
+           <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-[#DC0D0D] text-white hover:bg-[#FF0000] transition-all hover:scale-105 relative z-10 shadow-[0_0_30px_rgba(220,13,13,0.3)] border-0">
               🔥 QUERO MEU LOVABLACK AGORA
            </Button>
         </div>
