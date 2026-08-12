@@ -37,23 +37,26 @@ function Dashboard() {
   });
 
   useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
     if (sub?.type === 'trial' && sub.status === 'active') {
-      const timer = setInterval(() => {
+      timer = setInterval(() => {
         const now = new Date().getTime();
         const expiry = new Date(sub.expires_at).getTime();
         const diff = expiry - now;
 
         if (diff <= 0) {
           setTimeLeft('Expirado');
-          clearInterval(timer);
+          if (timer) clearInterval(timer);
         } else {
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
           setTimeLeft(`${minutes}m ${seconds}s`);
         }
       }, 1000);
-      return () => clearInterval(timer);
     }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
   }, [sub]);
 
   if (!user) return null;
