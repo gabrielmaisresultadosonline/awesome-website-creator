@@ -11,10 +11,10 @@ import logoFull from "@/assets/logo-full.png.asset.json";
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
-    title: "não gaste créditos com IA lovable ! Utilize Lovablack Extensao e tenha créditos infinitos.",
+    title: "LOVABLACK - Créditos Infinitos para Lovable",
     meta: [
       { name: "description", content: "Não gaste créditos com IA lovable. Utilize Lovablack Extensao e tenha créditos infinitos. Crie sem restrições com a melhor extensão do mercado." },
-      { property: "og:title", content: "não gaste créditos com IA lovable ! Utilize Lovablack Extensao e tenha créditos infinitos." },
+      { property: "og:title", content: "LOVABLACK - Créditos Infinitos para Lovable" },
       { property: "og:description", content: "O fim dos limites de créditos no Lovable. Utilize Lovablack Extensao e tenha créditos infinitos." }
     ]
   })
