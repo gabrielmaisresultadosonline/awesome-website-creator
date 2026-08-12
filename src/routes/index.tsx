@@ -236,7 +236,7 @@ function Index() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-neutral-900 hover:bg-neutral-800' : 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 shadow-none'}`}>
+                  <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-[#1A1B1A] hover:bg-[#080808] text-white shadow-lg shadow-[#D8D0C8]' : 'bg-[#F7F1EB] text-[#1A1B1A] hover:bg-[#D8D0C8] shadow-none border border-[#D8D0C8]'}`}>
                     {plan.button}
                   </Button>
                 </CardFooter>
