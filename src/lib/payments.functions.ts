@@ -14,8 +14,7 @@ export const createPaymentLink = createServerFn({ method: "POST" })
     redirectUrl: z.string(),
     webhookUrl: z.string(),
   }).parse(data))
-  .handler(async ({ data, context }) => {
-    // We need to import supabaseAdmin to record the transaction
+  .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: { user } } = await supabaseAdmin.auth.getUser();
     
@@ -23,8 +22,8 @@ export const createPaymentLink = createServerFn({ method: "POST" })
       throw new Error("Unauthorized");
     }
 
-    const handle = "paguemro"; // Fixed handle from documentation
-    const orderNsu = \`order-\${Date.now()}-\${Math.floor(Math.random() * 1000)}\`;
+    const handle = "paguemro";
+    const orderNsu = `order-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
     const payload = {
       handle,
@@ -40,7 +39,7 @@ export const createPaymentLink = createServerFn({ method: "POST" })
         {
           quantity: 1,
           price: data.priceCents,
-          description: \`LOVABLACK - \${data.planName}\`,
+          description: `LOVABLACK - ${data.planName}`,
         },
       ],
     };
@@ -60,7 +59,6 @@ export const createPaymentLink = createServerFn({ method: "POST" })
       throw new Error("Falha ao gerar link de pagamento");
     }
 
-    // Record transaction in pending state
     await supabaseAdmin.from("infinitepay_transactions").insert({
       user_id: user.id,
       order_nsu: orderNsu,
