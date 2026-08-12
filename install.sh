@@ -1,36 +1,98 @@
 #!/bin/bash
 
-# LOVABLACK - VPS Installation Script (Ubuntu 24.04 LTS)
-# Installs Node.js, Bun, PM2, and Nginx
+# ==========================================================================
+# LOVABLACK - SCRIPT DE INSTALAÇÃO AUTOMATIZADA (VPS UBUNTU 24.04)
+# Domínio: lovblack.online
+# Repositório: https://github.com/gabrielmaisresultadosonline/awesome-website-creator.git
+# ==========================================================================
 
 set -e
 
-echo "🚀 Starting LOVABLACK installation on Ubuntu 24.04..."
+DOMAIN="lovblack.online"
+APP_DIR="/var/www/lovablack"
+REPO_URL="https://github.com/gabrielmaisresultadosonline/awesome-website-creator.git"
+GIT_BRANCH="main"
 
-# Update system
+echo "---------------------------------------------------"
+echo "🚀 Iniciando instalação do LOVABLACK em $DOMAIN"
+echo "---------------------------------------------------"
+
+# 1. Atualização do Sistema
+echo "📦 Atualizando pacotes..."
 sudo apt update && sudo apt upgrade -y
 
-# Install essential tools
-sudo apt install -y curl wget git build-essential unzip nginx
+# 2. Instalação de Dependências Essenciais
+echo "🛠️ Instalando Node.js, Git, Nginx e Certbot..."
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs git nginx certbot python3-certbot-nginx
 
-# Install Node.js via NVM
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm install 20
-nvm use 20
-
-# Install Bun
+# 3. Instalação do Bun (Runtime ultra-rápido para TanStack Start)
+echo "⚡ Instalando Bun..."
 curl -fsSL https://bun.sh/install | bash
 export PATH="$HOME/.bun/bin:$PATH"
+source ~/.bashrc || true
 
-# Install PM2
-npm install -g pm2
+# 4. Configuração do Diretório Isolado
+echo "📂 Preparando pasta isolada em $APP_DIR..."
+sudo mkdir -p $APP_DIR
+sudo chown -R $USER:$USER $APP_DIR
+cd $APP_DIR
 
-echo "✅ Environment ready!"
-echo "Next steps:"
-echo "1. Clone your project"
-echo "2. Run 'bun install'"
-echo "3. Run 'bun run build'"
-echo "4. Start with PM2: 'pm2 start bun --name lovablack -- run start'"
-echo "5. Configure Nginx proxy to port 8080"
+# 5. Clonagem do Repositório
+echo "📥 Clonando repositório..."
+if [ -d ".git" ]; then
+    git pull origin $GIT_BRANCH
+else
+    git clone $REPO_URL .
+fi
+
+# 6. Instalação de Dependências do Projeto
+echo "📦 Instalando dependências com Bun..."
+~/.bun/bin/bun install
+
+# 7. Build do Projeto
+echo "🏗️ Gerando build de produção..."
+~/.bun/bin/bun run build
+
+# 8. Configuração do PM2 (Gerenciador de Processos)
+echo "⚙️ Configurando PM2 para manter o site online..."
+sudo npm install -g pm2
+pm2 delete lovablack 2>/dev/null || true
+pm2 start "bun run start" --name "lovablack" --env PORT=3000
+pm2 save
+pm2 startup | tail -n 1 | bash
+
+# 9. Configuração do Nginx (Proxy Reverso)
+echo "🌐 Configurando Nginx para $DOMAIN..."
+NGINX_CONF="/etc/nginx/sites-available/lovablack"
+
+sudo bash -c "cat > $NGINX_CONF << 'INNEREOF'
+server {
+    listen 80;
+    server_name $DOMAIN;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
+    }
+}
+INNEREOF"
+
+sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t && sudo systemctl restart nginx
+
+# 10. Instalação do SSL (Certbot)
+echo "🔒 Gerando certificado SSL gratuito com Let's Encrypt..."
+sudo certbot --nginx -d $DOMAIN --non-interactive --agree-tos -m mro@gmail.com --redirect
+
+echo "---------------------------------------------------"
+echo "✅ INSTALAÇÃO CONCLUÍDA COM SUCESSO!"
+echo "🌐 Acesse: https://$DOMAIN"
+echo "📂 Localização: $APP_DIR"
+echo "🚀 O processo está sendo gerenciado pelo PM2"
+echo "---------------------------------------------------"
