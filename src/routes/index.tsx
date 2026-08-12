@@ -11,11 +11,11 @@ import logoFull from "@/assets/logo-full.png.asset.json";
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
-    title: "LOVABLACK | Extensão Lovable Ilimitada",
+    title: "não gaste créditos com IA lovable ! Utilize Lovablack Extensao e tenha créditos infinitos.",
     meta: [
-      { name: "description", content: "Use Lovable ilimitado e grátis com a extensão LOVABLACK. Sem créditos, velocidade máxima e hospedagem inclusa." },
-      { property: "og:title", content: "LOVABLACK | Extensão Lovable Ilimitada" },
-      { property: "og:description", content: "O fim dos limites de créditos no Lovable. Crie sem restrições." }
+      { name: "description", content: "Não gaste créditos com IA lovable. Utilize Lovablack Extensao e tenha créditos infinitos. Crie sem restrições com a melhor extensão do mercado." },
+      { property: "og:title", content: "não gaste créditos com IA lovable ! Utilize Lovablack Extensao e tenha créditos infinitos." },
+      { property: "og:description", content: "O fim dos limites de créditos no Lovable. Utilize Lovablack Extensao e tenha créditos infinitos." }
     ]
   })
 });
@@ -82,12 +82,11 @@ function Index() {
             <img src={logoFull.url} alt="LOVABLACK Logo" className="h-32 md:h-48 object-contain cursor-pointer hover:scale-105 transition-transform" />
           </Link>
         </div>
-        <Badge variant="outline" className="mb-6 border-primary/20 text-primary px-4 py-1">
-          🚀 O NOVO LOVABLACK CHEGOU
-        </Badge>
-        <p className="text-xl md:text-2xl text-neutral-600 max-w-3xl mx-auto mb-10 leading-relaxed">
-          Prepare-se para aproveitar uma experiência aprimorada e <span className="text-neutral-900 font-bold italic underline decoration-primary/30">ilimitada</span>. 
-          A melhor ferramenta do mercado está de volta!
+        <h1 className="text-4xl md:text-7xl font-black text-[#1A1B1A] mb-6 tracking-tight leading-[1.1]">
+          Não gaste créditos com IA lovable.
+        </h1>
+        <p className="text-xl md:text-3xl text-neutral-700 max-w-4xl mx-auto mb-10 font-medium">
+          Utilize Lovablack Extensao e tenha créditos infinitos.
         </p>
         
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
