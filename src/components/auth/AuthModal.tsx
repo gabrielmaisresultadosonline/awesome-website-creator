@@ -11,9 +11,14 @@ import { useNavigate } from '@tanstack/react-router';
 interface AuthModalProps {
   initialMode?: 'login' | 'signup';
   isTrial?: boolean;
+  onSuccessRedirect?: {
+    planName: string;
+    priceCents: number;
+    planDurationDays: number;
+  };
 }
 
-export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalProps) {
+export function AuthModal({ initialMode = 'login', isTrial = false, onSuccessRedirect }: AuthModalProps) {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,11 +29,15 @@ export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalP
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session) {
+        if (onSuccessRedirect) {
+          // Store redirect info in session storage to handle after navigation
+          sessionStorage.setItem('lovablack_pending_payment', JSON.stringify(onSuccessRedirect));
+        }
         navigate({ to: '/dashboard' });
       }
     });
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, onSuccessRedirect]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,7 +115,7 @@ export function AuthModal({ initialMode = 'login', isTrial = false }: AuthModalP
             </CardFooter>
           </form>
         </TabsContent>
-
+ 
         <TabsContent value="signup">
           <form onSubmit={handleSignup}>
             <CardHeader>
