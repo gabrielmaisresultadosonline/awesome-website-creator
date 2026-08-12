@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import logoHeart from "@/assets/logo-heart.png.asset.json";
 import logoFull from "@/assets/logo-full.png.asset.json";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/ingles")({
   component: Index,
   head: () => ({
     title: "LOVABLACK - Créditos Infinitos para Lovable",
