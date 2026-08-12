@@ -176,6 +176,8 @@ function AdminDashboard() {
                   <TableHead>Valor</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>NSU Pedido</TableHead>
+                  <TableHead>Checkout</TableHead>
+
                   <TableHead>Data</TableHead>
                 </TableRow>
               </TableHeader>
@@ -194,6 +196,10 @@ function AdminDashboard() {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-xs font-mono">{tx.order_nsu}</TableCell>
+                    <TableCell>
+                      <Button variant="link" size="sm" onClick={() => window.open(tx.payment_link, '_blank')}>Abrir</Button>
+                    </TableCell>
+
                     <TableCell className="text-xs">{new Date(tx.created_at).toLocaleString()}</TableCell>
                   </TableRow>
                 ))}
