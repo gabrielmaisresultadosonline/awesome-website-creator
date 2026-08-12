@@ -290,12 +290,12 @@ function Index() {
       {/* Testimonials */}
       <section className="py-24 bg-white border-y border-neutral-100">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16">Quem usa recomenda</h2>
+          <h2 className="text-4xl font-bold text-center mb-16">Who uses it recommends it</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: "Lucas M.", role: "Dev Full-Stack", text: "Finalizei 3 projetos usando o Lovable de graça com o LOVABLACK. Antes eu ficava preso calculando créditos o tempo todo.", initials: "LM" },
-              { name: "Ana Paula S.", role: "Designer UI/UX", text: "Agora tenho Lovable grátis pra sempre e posso testar todas as ideias sem me preocupar com limites. Mudou meu fluxo.", initials: "AP" },
-              { name: "Rafael C.", role: "Freelancer", text: "A hospedagem grátis inclusa é um diferencial absurdo. Consigo entregar projetos maiores e mais rápido.", initials: "RC" },
+              { name: "Lucas M.", role: "Full-Stack Dev", text: "I finished 3 projects using Lovable for free with LOVABLACK. Before, I was stuck calculating credits all the time.", initials: "LM" },
+              { name: "Ana Paula S.", role: "UI/UX Designer", text: "Now I have Lovable free forever and can test all ideas without worrying about limits. It changed my workflow.", initials: "AP" },
+              { name: "Rafael C.", role: "Freelancer", text: "The included free hosting is an incredible differentiator. I can deliver bigger projects faster.", initials: "RC" },
             ].map((t, i) => (
               <div key={i} className="p-8 rounded-[2.5rem] bg-neutral-50 border border-neutral-100 relative">
                 <Star className="w-8 h-8 text-neutral-200 absolute top-8 right-8" />
