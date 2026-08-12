@@ -3,6 +3,8 @@ import { Check, Shield, Zap, MessageSquare, FileText, Mic, Sparkles, PlusCircle,
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import logoHeart from "@/assets/logo-heart.png.asset.json";
+import logoFull from "@/assets/logo-full.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -73,12 +75,10 @@ function Index() {
     <div className="min-h-screen font-sans selection:bg-primary/20" style={{ backgroundColor: "#FFFDF5" }}>
       {/* Hero Section */}
       <header className="container mx-auto px-4 pt-20 pb-16 text-center">
+        <div className="flex justify-center mb-8">
+          <img src={logoFull.url} alt="LOVABLACK Logo" className="h-20 md:h-28 object-contain" />
+        </div>
         <Badge variant="outline" className="mb-6 border-primary/20 text-primary px-4 py-1">
-          🚀 O NOVO LOVABLACK CHEGOU
-        </Badge>
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-neutral-900 mb-6">
-          LOVA<span className="text-neutral-500">BLACK</span>
-        </h1>
         <p className="text-xl md:text-2xl text-neutral-600 max-w-3xl mx-auto mb-10 leading-relaxed">
           Prepare-se para aproveitar uma experiência aprimorada e <span className="text-neutral-900 font-bold italic underline decoration-primary/30">ilimitada</span>. 
           A melhor ferramenta do mercado está de volta!
@@ -94,13 +94,13 @@ function Index() {
           </div>
         </div>
 
-        <div className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden border-8 border-white shadow-2xl bg-neutral-100 aspect-video flex items-center justify-center group">
-          <div className="absolute inset-0 bg-neutral-900/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 pointer-events-none">
+        <div className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden border-8 border-white shadow-2xl bg-neutral-900 aspect-video flex items-center justify-center group">
+          <div className="absolute inset-0 bg-neutral-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 pointer-events-none">
              <Button variant="secondary" className="rounded-full h-16 w-16 p-0 shadow-lg border-white/20">
                 <Zap className="fill-current w-6 h-6" />
              </Button>
           </div>
-          <p className="text-neutral-400 font-medium">Demonstração do LOVABLACK - Ilimitado & Grátis</p>
+          <img src={logoHeart.url} alt="LOVABLACK Icon" className="w-32 h-32 md:w-48 md:h-48 object-contain animate-pulse" />
           <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur p-4 rounded-xl flex items-center justify-between border border-white/20 shadow-lg">
              <p className="text-sm font-bold text-neutral-900">🚀 Esse Site foi feito inteiramente por essa extensão</p>
              <Badge variant="secondary" className="bg-neutral-900 text-white border-0">GRÁTIS</Badge>
