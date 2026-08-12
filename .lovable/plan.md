@@ -1,29 +1,38 @@
-# Plano de Implementação - LOVABLACK
+# Plan: LOVABLACK User Area, Subscription System, and Admin Dashboard
 
-Criação de uma landing page profissional para a extensão "LOVABLACK", com design em tons de creme, planos de preços atualizados e script de instalação para VPS (Ubuntu 24.04).
+We will implement a complete authentication and authorization system using Lovable Cloud (Supabase), including a public homepage with a signup form, a dashboard for users (with extension download and trial timer), and a protected admin area.
 
-## 🎨 Design e UI
-- **Paleta de Cores:** Fundo creme (`#FFFDF5`), textos e detalhes em preto/cinza escuro.
-- **Estrutura da Página:**
-  - **Hero Section:** Título "LOVABLACK", foco em "Extensão Lovable Ilimitada" e "Sem Gastar Créditos". Botão para "TESTE GRÁTIS".
-  - **Destaque:** "Esse Site foi feito inteiramente por essa extensão".
-  - **Benefícios:** Lovable Unlimited, Velocidade Máxima, Hospedagem Inclusa, Grátis Pra Sempre.
-  - **Funcionalidades:** Bloqueio do Chat, Envio de Arquivos/Áudio, IA para Prompts, Novo Projeto Grátis, Tirar Marca d'Água, Hospedagem Grátis.
-  - **Passo a Passo:** 4 passos simples para ativação.
-  - **Preços:** 
-    - Teste Grátis (20 min)
-    - Mensal (R$ 47)
-    - Semestral (R$ 147)
-    - Vitalício (R$ 397)
-  - **Prova Social:** Depoimentos (Lucas M., Ana Paula S., Rafael C.) e contador de visualizações.
+## User Experience
+- **Public Homepage**: Updated buttons to trigger a signup/login modal.
+- **Signup Flow**: Collects name, email, password, and WhatsApp.
+- **Dashboard (/dashboard)**:
+  - If user has no plan/trial: Shows pricing options to purchase.
+  - If user has an active plan: Shows the "Download Extension" button and a tutorial video.
+  - If user is on trial: Shows a countdown timer for the 20-minute limit.
+  - If trial/plan is expired: Locks the download button and shows purchase options.
+- **Admin Area (/admin)**: Protected route for `mro@Gmail.com`. Allows viewing all registrations, trial statuses, and purchases.
 
-## 💰 Novos Planos de Preços
-- **Teste Grátis:** 20 minutos.
-- **Mensal:** R$ 47.
-- **Semestral:** R$ 147.
-- **Vitalício:** R$ 397.
+## Technical Details
+- **Authentication**: Using Supabase Auth with custom metadata (full_name, whatsapp).
+- **Database Schema**:
+  - `profiles`: Extends user data.
+  - `subscriptions`: Tracks trial and paid plan status (expires_at, type).
+  - `user_roles`: Manages access control (admin vs user).
+- **State Management**: TanStack Query for fetching subscription and profile data.
+- **Routing**: TanStack Router with `_authenticated` layout for the dashboard and admin gate.
+- **Trial Logic**: A server function to initiate a 20-minute trial subscription upon first signup if requested.
 
-## 🚀 DevOps
-- Script `install.sh` na raiz para Ubuntu 24.04 LTS.
-- O script automatizará a instalação de Node.js, Bun, PM2 e Nginx.
-
+## Implementation Steps
+1. **Enable Lovable Cloud**: (Requires user credits, will fallback to local mock if needed, but primary path is Cloud).
+2. **Database Migration**: Create tables for profiles, roles, and subscriptions.
+3. **Auth Components**: Create `AuthModal` with login/signup tabs.
+4. **User Dashboard**:
+   - Implement `/dashboard` route.
+   - Logic to check subscription status.
+   - "Download" and "Tutorial" components.
+   - Countdown timer hook for trials.
+5. **Admin Dashboard**:
+   - Implement `/admin` route.
+   - Secure it via role check (or hardcoded admin email per request).
+   - Data table to list all users and their status.
+6. **Integration**: Connect homepage buttons to the new Auth flow.
