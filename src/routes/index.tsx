@@ -87,7 +87,7 @@ function Index() {
         </p>
         
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
-          <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-neutral-900 text-white hover:bg-neutral-800 transition-all hover:scale-105">
+          <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-[#1A1B1A] text-white hover:bg-[#080808] transition-all hover:scale-105 shadow-lg shadow-[#D8D0C8]">
             🚀 TESTE GRÁTIS 20 MIN
           </Button>
           <div className="flex items-center gap-6 text-sm text-neutral-500 font-medium">
