@@ -236,7 +236,7 @@ function Index() {
             {plans.map((plan, i) => (
               <Card key={i} className={`relative flex flex-col border-neutral-200 transition-all hover:shadow-2xl ${plan.popular ? 'scale-105 border-neutral-900 shadow-xl z-10' : ''}`}>
                 {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-neutral-900 text-white px-4 py-1">MAIS POPULAR</Badge>
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-neutral-900 text-white px-4 py-1">MOST POPULAR</Badge>
                 )}
                 <CardHeader>
                   <CardTitle className="text-xl">{plan.name}</CardTitle>
