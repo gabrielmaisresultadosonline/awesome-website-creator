@@ -72,11 +72,11 @@ function Index() {
   ];
 
   return (
-    <div className="min-h-screen font-sans selection:bg-primary/20" style={{ backgroundColor: "#FFFDF5" }}>
+    <div className="min-h-screen font-sans selection:bg-primary/20" style={{ backgroundColor: "#F7F1EB" }}>
       {/* Hero Section */}
       <header className="container mx-auto px-4 pt-20 pb-16 text-center">
         <div className="flex justify-center mb-8">
-          <img src={logoFull.url} alt="LOVABLACK Logo" className="h-20 md:h-28 object-contain" />
+          <img src={logoFull.url} alt="LOVABLACK Logo" className="h-32 md:h-48 object-contain" />
         </div>
         <Badge variant="outline" className="mb-6 border-primary/20 text-primary px-4 py-1">
           🚀 O NOVO LOVABLACK CHEGOU
@@ -87,7 +87,7 @@ function Index() {
         </p>
         
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
-          <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-neutral-900 text-white hover:bg-neutral-800 transition-all hover:scale-105">
+          <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-[#1A1B1A] text-white hover:bg-[#080808] transition-all hover:scale-105 shadow-lg shadow-[#D8D0C8]">
             🚀 TESTE GRÁTIS 20 MIN
           </Button>
           <div className="flex items-center gap-6 text-sm text-neutral-500 font-medium">
@@ -96,35 +96,43 @@ function Index() {
           </div>
         </div>
 
-        <div className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden border-8 border-white shadow-2xl bg-neutral-900 aspect-video flex items-center justify-center group">
+        <div className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden border-[12px] border-white shadow-2xl bg-gradient-to-br from-[#080808] via-[#1A1B1A] to-[#DC0D0D] aspect-video flex items-center justify-center group shadow-[#D8D0C8]">
           <div className="absolute inset-0 bg-neutral-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 pointer-events-none">
-             <Button variant="secondary" className="rounded-full h-16 w-16 p-0 shadow-lg border-white/20">
-                <Zap className="fill-current w-6 h-6" />
+             <Button variant="secondary" className="rounded-full h-20 w-20 p-0 shadow-lg border-white/20 bg-white text-neutral-900">
+                <Zap className="fill-neutral-900 w-8 h-8" />
              </Button>
           </div>
-          <img src={logoHeart.url} alt="LOVABLACK Icon" className="w-32 h-32 md:w-48 md:h-48 object-contain animate-pulse" />
-          <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur p-4 rounded-xl flex items-center justify-between border border-white/20 shadow-lg">
-             <p className="text-sm font-bold text-neutral-900">🚀 Esse Site foi feito inteiramente por essa extensão</p>
-             <Badge variant="secondary" className="bg-neutral-900 text-white border-0">GRÁTIS</Badge>
+          
+          {/* Heart Glow Effect */}
+          <div className="absolute w-64 h-64 bg-[#FF0000]/20 blur-[80px] rounded-full animate-pulse"></div>
+          
+          <img src={logoHeart.url} alt="LOVABLACK Icon" className="w-40 h-40 md:w-60 md:h-60 object-contain animate-pulse relative z-10 drop-shadow-[0_0_30px_rgba(220,13,13,0.5)]" />
+          
+          <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl flex items-center justify-between border border-white/20 shadow-xl">
+             <div className="flex items-center gap-3">
+               <div className="w-3 h-3 rounded-full bg-[#DC0D0D] animate-ping"></div>
+               <p className="text-sm md:text-base font-black text-[#1A1B1A] tracking-tight">🚀 ESSE SITE FOI FEITO INTEIRAMENTE POR ESSA EXTENSÃO</p>
+             </div>
+             <Badge className="bg-[#DC0D0D] text-white border-0 px-4 py-1 font-bold">100% GRÁTIS</Badge>
           </div>
         </div>
       </header>
 
       {/* Benefits */}
-      <section className="py-24 bg-white/50 border-y border-neutral-100">
+      <section className="py-24 bg-white/30 backdrop-blur-sm border-y border-[#D8D0C8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-neutral-900 mb-4">Por que escolher o LOVABLACK?</h2>
-            <p className="text-neutral-600">Tudo o que você precisa para usar o Lovable de graça e ilimitado.</p>
+            <h2 className="text-4xl font-bold text-[#1A1B1A] mb-4">Por que escolher o LOVABLACK?</h2>
+            <p className="text-[#4F4E4D]">Tudo o que você precisa para usar o Lovable de graça e ilimitado.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((b, i) => (
-              <div key={i} className="p-8 rounded-3xl bg-white border border-neutral-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="w-12 h-12 rounded-2xl bg-neutral-50 flex items-center justify-center mb-6 text-neutral-900 group-hover:bg-primary group-hover:text-white transition-colors">
-                  <b.icon className="w-6 h-6" />
+              <div key={i} className="p-8 rounded-3xl bg-white border border-[#D8D0C8] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+                <div className="w-14 h-14 rounded-2xl bg-[#F7F1EB] flex items-center justify-center mb-6 text-[#1A1B1A] group-hover:bg-[#DC0D0D] group-hover:text-white transition-all duration-300 shadow-sm">
+                  <b.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{b.title}</h3>
-                <p className="text-neutral-500 text-sm leading-relaxed">{b.desc}</p>
+                <h3 className="text-xl font-bold mb-3 text-[#1A1B1A] group-hover:text-[#DC0D0D] transition-colors">{b.title}</h3>
+                <p className="text-[#4F4E4D] text-sm leading-relaxed">{b.desc}</p>
               </div>
             ))}
           </div>
@@ -154,10 +162,14 @@ function Index() {
         </div>
       </section>
 
-      {/* Steps */}
-      <section className="py-24 bg-neutral-900 text-white rounded-[4rem] mx-4">
-        <div className="container mx-auto px-4">
+      {/* Important Info Section */}
+      <section className="py-24 bg-[#080808] text-white rounded-[4rem] mx-4 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
+            <Badge variant="outline" className="mb-4 border-primary/30 text-primary-foreground/80 px-4 py-1">
+              ✨ INFORMAÇÕES IMPORTANTES
+            </Badge>
             <h2 className="text-4xl font-bold mb-4">Como Usar LOVABLACK?</h2>
             <p className="text-neutral-400">Tenha Lovable unlimited em 4 passos simples.</p>
           </div>
@@ -168,12 +180,22 @@ function Index() {
               { s: "03", t: "Ative sua licença", d: "Ativação instantânea com sua chave de acesso." },
               { s: "04", t: "Lovable Unlimited", d: "Pronto! Crie e hospede sem limites de créditos." },
             ].map((step, i) => (
-              <div key={i} className="relative p-6 border border-white/10 rounded-3xl hover:bg-white/5 transition-colors">
-                <span className="text-5xl font-black text-white/10 absolute -top-4 -left-2">{step.s}</span>
-                <h3 className="text-xl font-bold mb-3 mt-4">{step.t}</h3>
+              <div key={i} className="relative p-8 border border-white/10 rounded-3xl bg-white/5 hover:bg-white/10 transition-all group">
+                <span className="text-5xl font-black text-white/10 absolute -top-4 -left-2 group-hover:text-primary/20 transition-colors">{step.s}</span>
+                <h3 className="text-xl font-bold mb-3 mt-4 text-white group-hover:text-primary transition-colors">{step.t}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">{step.d}</p>
               </div>
             ))}
+          </div>
+          
+          <div className="mt-20 p-8 rounded-3xl bg-gradient-to-r from-[#1A1B1A] to-[#080808] border border-white/5">
+            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <Shield className="text-primary" /> Compromisso LOVABLACK
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-neutral-400 text-sm leading-relaxed">
+              <p>O <b>LOVABLACK</b> foi desenvolvido com o propósito de democratizar o acesso à criação de software. Acreditamos que a criatividade não deve ser limitada por créditos ou orçamentos restritos.</p>
+              <p>Nossa tecnologia de <b>Bloqueio de Chat</b> e <b>Prioridade de Requisição</b> garante que você tenha a melhor experiência possível, simulando um ambiente premium sem os custos proibitivos.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -214,7 +236,7 @@ function Index() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-neutral-900 hover:bg-neutral-800' : 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 shadow-none'}`}>
+                  <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-[#1A1B1A] hover:bg-[#080808] text-white shadow-lg shadow-[#D8D0C8]' : 'bg-[#F7F1EB] text-[#1A1B1A] hover:bg-[#D8D0C8] shadow-none border border-[#D8D0C8]'}`}>
                     {plan.button}
                   </Button>
                 </CardFooter>
@@ -242,7 +264,7 @@ function Index() {
                 <Star className="w-8 h-8 text-neutral-200 absolute top-8 right-8" />
                 <p className="text-lg text-neutral-700 mb-8 italic">"{t.text}"</p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold">{t.initials}</div>
+                  <div className="w-12 h-12 rounded-full bg-[#1A1B1A] text-white flex items-center justify-center font-bold shadow-md">{t.initials}</div>
                   <div>
                     <h4 className="font-bold text-neutral-900">{t.name}</h4>
                     <p className="text-sm text-neutral-500">{t.role}</p>
@@ -257,10 +279,11 @@ function Index() {
       {/* Footer CTA */}
       <footer className="py-24 text-center container mx-auto px-4">
         <div className="max-w-4xl mx-auto bg-neutral-900 text-white p-12 md:p-20 rounded-[4rem] relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-           <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10">Quantos projetos você deixou de criar por falta de créditos?</h2>
-           <p className="text-xl text-neutral-400 mb-12 relative z-10">Isso acaba agora. Lovable ilimitado é realidade com LOVABLACK.</p>
-           <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-white text-neutral-900 hover:bg-neutral-100 transition-all hover:scale-105 relative z-10">
+           <div className="absolute top-0 right-0 w-64 h-64 bg-[#DC0D0D]/20 blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+           <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#DC0D0D]/10 blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+           <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10 leading-tight">Quantos projetos você deixou de criar por falta de créditos?</h2>
+           <p className="text-xl text-neutral-400 mb-12 relative z-10 max-w-2xl mx-auto">Isso acaba agora. Lovable ilimitado é realidade com <b>LOVABLACK</b>. Crie, teste e hospede sem restrições.</p>
+           <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-[#DC0D0D] text-white hover:bg-[#FF0000] transition-all hover:scale-105 relative z-10 shadow-[0_0_30px_rgba(220,13,13,0.3)] border-0">
               🔥 QUERO MEU LOVABLACK AGORA
            </Button>
         </div>
