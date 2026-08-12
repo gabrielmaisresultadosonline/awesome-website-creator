@@ -269,6 +269,7 @@ function Index() {
                       <AuthModal 
                         initialMode="signup" 
                         isTrial={plan.name === "Free Trial"} 
+                        lang="en"
                         onSuccessRedirect={plan.name === "Free Trial" ? undefined : {
                           planName: plan.name,
                           priceCents: plan.cents,
