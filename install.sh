@@ -4,10 +4,10 @@ DOMAIN="lovblack.online"
 EMAIL="mro@gmail.com"
 APP_DIR=$(pwd)
 
-echo "🚀 Starting setup for LOVABLACK in $APP_DIR"
+echo "🚀 Iniciando configuração do LOVABLACK..."
 
-# 1. System dependencies
-sudo apt-get update && sudo apt-get install -y nodejs git nginx certbot python3-certbot-nginx curl
+# 1. System dependencies (including unzip for Bun)
+sudo apt-get update && sudo apt-get install -y nodejs git nginx certbot python3-certbot-nginx curl unzip
 
 # 2. Bun installation
 if ! command -v bun &> /dev/null; then
@@ -17,6 +17,7 @@ fi
 export PATH="$HOME/.bun/bin:$PATH"
 
 # 3. Project setup
+# Dependencies and Build
 bun install
 bun run build
 
@@ -51,5 +52,5 @@ sudo nginx -t && sudo systemctl restart nginx
 # 6. SSL Configuration
 sudo certbot --nginx -d $DOMAIN --non-interactive --agree-tos -m $EMAIL --redirect
 
-echo "✅ LOVABLACK INSTALLED SUCCESSFULLY!"
-echo "🌐 Access: https://$DOMAIN"
+echo "✅ LOVABLACK INSTALADO COM SUCESSO!"
+echo "🌐 Acesse: https://$DOMAIN"
