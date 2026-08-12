@@ -188,17 +188,17 @@ function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-4 border-primary/30 text-primary-foreground/80 px-4 py-1">
-              ✨ INFORMAÇÕES IMPORTANTES
+              ✨ IMPORTANT INFORMATION
             </Badge>
-            <h2 className="text-4xl font-bold mb-4">Como Usar LOVABLACK?</h2>
-            <p className="text-neutral-400">Tenha Lovable unlimited em 4 passos simples.</p>
+            <h2 className="text-4xl font-bold mb-4">How to Use LOVABLACK?</h2>
+            <p className="text-neutral-400">Get Lovable unlimited in 4 simple steps.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { s: "01", t: "Escolha seu plano", d: "Selecione o plano ideal para suas necessidades." },
-              { s: "02", t: "Instale a extensão", d: "Chrome, Firefox, Edge ou Opera em segundos." },
-              { s: "03", t: "Ative sua licença", d: "Ativação instantânea com sua chave de acesso." },
-              { s: "04", t: "Lovable Unlimited", d: "Pronto! Crie e hospede sem limites de créditos." },
+              { s: "01", t: "Choose your plan", d: "Select the ideal plan for your needs." },
+              { s: "02", t: "Install the extension", d: "Chrome, Firefox, Edge or Opera in seconds." },
+              { s: "03", t: "Activate your license", d: "Instant activation with your access key." },
+              { s: "04", t: "Lovable Unlimited", d: "Done! Create and host without credit limits." },
             ].map((step, i) => (
               <div key={i} className="relative p-8 border border-white/10 rounded-3xl bg-white/5 hover:bg-white/10 transition-all group">
                 <span className="text-5xl font-black text-white/10 absolute -top-4 -left-2 group-hover:text-primary/20 transition-colors">{step.s}</span>
