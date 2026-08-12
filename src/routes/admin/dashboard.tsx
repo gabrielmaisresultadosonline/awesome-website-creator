@@ -4,10 +4,9 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Users, CreditCard, Clock, CheckCircle, XCircle, Download, Video, Link, Settings } from 'lucide-react';
+import { Users, CreditCard, Clock, CheckCircle, XCircle, Download, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
 import { toast } from 'sonner';
 
 export const Route = createFileRoute('/admin/dashboard')({
@@ -89,7 +88,7 @@ function AdminDashboard() {
             <CardContent className="space-y-4">
               <div className="flex gap-2">
                 <Input 
-                  defaultValue={settings?.download_link} 
+                  defaultValue={settings?.['download_link']} 
                   id="download-link-input"
                   placeholder="https://..." 
                 />
@@ -111,7 +110,7 @@ function AdminDashboard() {
             <CardContent className="space-y-4">
               <div className="flex gap-2">
                 <Input 
-                  defaultValue={settings?.tutorials?.[0]?.url} 
+                  defaultValue={settings?.['tutorials']?.[0]?.url} 
                   id="tutorial-link-input"
                   placeholder="https://www.youtube.com/embed/..." 
                 />

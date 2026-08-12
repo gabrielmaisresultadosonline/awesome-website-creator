@@ -3,17 +3,19 @@ import { z } from "zod";
 
 const INFINITEPAY_API_URL = "https://api.checkout.infinitepay.io/links";
 
+const PaymentInput = z.object({
+  planName: z.string(),
+  priceCents: z.number(),
+  planDurationDays: z.number(),
+  customerName: z.string(),
+  customerEmail: z.string(),
+  customerPhone: z.string().optional(),
+  redirectUrl: z.string(),
+  webhookUrl: z.string(),
+});
+
 export const createPaymentLink = createServerFn({ method: "POST" })
-  .inputValidator((data) => z.object({
-    planName: z.string(),
-    priceCents: z.number(),
-    planDurationDays: z.number(),
-    customerName: z.string(),
-    customerEmail: z.string(),
-    customerPhone: z.string().optional(),
-    redirectUrl: z.string(),
-    webhookUrl: z.string(),
-  }).parse(data))
+  .inputValidator((data) => PaymentInput.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: { user } } = await supabaseAdmin.auth.getUser();

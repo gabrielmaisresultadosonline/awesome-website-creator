@@ -45,8 +45,8 @@ function Dashboard() {
   });
 
   const paymentMutation = useMutation({
-    mutationFn: createPaymentLink,
-    onSuccess: (data) => {
+    mutationFn: (data: any) => createPaymentLink({ data }),
+    onSuccess: (data: any) => {
       window.open(data.url, '_blank');
       toast.success("Link de pagamento gerado! Finalize a compra para liberar seu acesso.");
     },
@@ -134,7 +134,7 @@ function Dashboard() {
                 )}
                 <Button 
                   className="w-full h-16 text-lg font-bold bg-[#1A1B1A] gap-3"
-                  onClick={() => window.open(settings?.download_link || '#', '_blank')}
+                  onClick={() => window.open(settings?.['download_link'] || '#', '_blank')}
                 >
                   <Download className="w-6 h-6" /> BAIXAR EXTENSÃO (.ZIP)
                 </Button>
@@ -149,9 +149,9 @@ function Dashboard() {
               </CardHeader>
               <CardContent className="p-0">
                 <div className="aspect-video bg-neutral-900 flex items-center justify-center">
-                  {settings?.tutorials?.[0]?.url ? (
+                  {settings?.['tutorials']?.[0]?.url ? (
                     <iframe 
-                      src={settings.tutorials[0].url} 
+                      src={settings['tutorials'][0].url} 
                       className="w-full h-full" 
                       allowFullScreen 
                       title="Tutorial"
