@@ -318,12 +318,12 @@ function Index() {
         <div className="max-w-4xl mx-auto bg-neutral-900 text-white p-12 md:p-20 rounded-[4rem] relative overflow-hidden">
            <div className="absolute top-0 right-0 w-64 h-64 bg-[#DC0D0D]/20 blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#DC0D0D]/10 blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
-           <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10 leading-tight">Quantos projetos você deixou de criar por falta de créditos?</h2>
-           <p className="text-xl text-neutral-400 mb-12 relative z-10 max-w-2xl mx-auto">Isso acaba agora. Lovable ilimitado é realidade com <b>LOVABLACK</b>. Crie, teste e hospede sem restrições.</p>
+           <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10 leading-tight">How many projects did you stop creating due to lack of credits?</h2>
+           <p className="text-xl text-neutral-400 mb-12 relative z-10 max-w-2xl mx-auto">That ends now. Unlimited Lovable is a reality with <b>LOVABLACK</b>. Create, test and host without restrictions.</p>
            <Dialog>
              <DialogTrigger asChild>
                <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-[#DC0D0D] text-white hover:bg-[#FF0000] transition-all hover:scale-105 relative z-10 shadow-[0_0_30px_rgba(220,13,13,0.3)] border-0">
-                  🔥 QUERO MEU LOVABLACK AGORA
+                  🔥 I WANT MY LOVABLACK NOW
                </Button>
              </DialogTrigger>
              <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
