@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================================================
-# LOVABLACK - SCRIPT DE INSTALAÇÃO (EXECUTADO DENTRO DA PASTA DO PROJETO)
+# LOVABLACK - SCRIPT DE INSTALAÇÃO (FIXED)
 # Domínio: lovblack.online
 # ==========================================================================
 
@@ -29,11 +29,11 @@ fi
 
 # 3. Instalação de dependências do projeto
 echo "📦 Instalando dependências locais..."
-~/.bun/bin/bun install
+/root/.bun/bin/bun install || bun install
 
 # 4. Build
 echo "🏗️ Gerando build..."
-~/.bun/bin/bun run build
+/root/.bun/bin/bun run build || bun run build
 
 # 5. Configuração do PM2
 echo "⚙️ Iniciando processo com PM2..."
@@ -46,27 +46,30 @@ pm2 startup | tail -n 1 | bash || true
 # 6. Nginx & SSL
 echo "🌐 Configurando Nginx e SSL para $DOMAIN..."
 NGINX_CONF="/etc/nginx/sites-available/lovablack"
-sudo bash -c "cat > $NGINX_CONF << 'INNEREOF'
+
+# Criar arquivo temporário para evitar problemas de redirecionamento no bash da VPS
+cat << 'INNEREOF' > /tmp/lovablack_nginx.conf
 server {
     listen 80;
-    server_name $DOMAIN;
+    server_name lovblack.online;
     location / {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
-        proxy_set_header Host \$host;
-        proxy_cache_bypass \$http_upgrade;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
     }
 }
-INNEREOF"
+INNEREOF
 
+sudo mv /tmp/lovablack_nginx.conf $NGINX_CONF
 sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl restart nginx
 
 echo "🔒 Solicitando SSL..."
-sudo certbot --nginx -d $DOMAIN --non-interactive --agree-tos -m mro@gmail.com --redirect
+sudo certbot --nginx -d lovblack.online --non-interactive --agree-tos -m mro@gmail.com --redirect
 
 echo "---------------------------------------------------"
 echo "✅ INSTALAÇÃO CONCLUÍDA DENTRO DA PASTA!"
