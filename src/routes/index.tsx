@@ -1,8 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Check, Shield, Zap, MessageSquare, FileText, Mic, Sparkles, PlusCircle, Eraser, Globe, Star, Clock, Heart, Users, ShieldCheck } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Check, Shield, Zap, MessageSquare, FileText, Mic, Sparkles, PlusCircle, Eraser, Globe, Star, Clock, Heart, Users, ShieldCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import logoHeart from "@/assets/logo-heart.png.asset.json";
 import logoFull from "@/assets/logo-full.png.asset.json";
 
@@ -76,7 +78,9 @@ function Index() {
       {/* Hero Section */}
       <header className="container mx-auto px-4 pt-20 pb-16 text-center">
         <div className="flex justify-center mb-8">
-          <img src={logoFull.url} alt="LOVABLACK Logo" className="h-32 md:h-48 object-contain" />
+          <Link to="/">
+            <img src={logoFull.url} alt="LOVABLACK Logo" className="h-32 md:h-48 object-contain cursor-pointer hover:scale-105 transition-transform" />
+          </Link>
         </div>
         <Badge variant="outline" className="mb-6 border-primary/20 text-primary px-4 py-1">
           🚀 O NOVO LOVABLACK CHEGOU
@@ -87,9 +91,17 @@ function Index() {
         </p>
         
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
-          <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-[#1A1B1A] text-white hover:bg-[#080808] transition-all hover:scale-105 shadow-lg shadow-[#D8D0C8]">
-            🚀 TESTE GRÁTIS 20 MIN
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-[#1A1B1A] text-white hover:bg-[#080808] transition-all hover:scale-105 shadow-lg shadow-[#D8D0C8]">
+                🚀 TESTE GRÁTIS 20 MIN
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
+              <AuthModal initialMode="signup" isTrial={true} />
+            </DialogContent>
+          </Dialog>
+          
           <div className="flex items-center gap-6 text-sm text-neutral-500 font-medium">
             <span className="flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /> Ativação instantânea</span>
             <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-primary" /> Pagamento seguro</span>
@@ -236,9 +248,16 @@ function Index() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-[#1A1B1A] hover:bg-[#080808] text-white shadow-lg shadow-[#D8D0C8]' : 'bg-[#F7F1EB] text-[#1A1B1A] hover:bg-[#D8D0C8] shadow-none border border-[#D8D0C8]'}`}>
-                    {plan.button}
-                  </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className={`w-full h-12 font-bold rounded-xl transition-all ${plan.popular ? 'bg-[#1A1B1A] hover:bg-[#080808] text-white shadow-lg shadow-[#D8D0C8]' : 'bg-[#F7F1EB] text-[#1A1B1A] hover:bg-[#D8D0C8] shadow-none border border-[#D8D0C8]'}`}>
+                        {plan.button}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
+                      <AuthModal initialMode="signup" isTrial={plan.name === "Teste Grátis"} />
+                    </DialogContent>
+                  </Dialog>
                 </CardFooter>
               </Card>
             ))}
@@ -283,16 +302,24 @@ function Index() {
            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#DC0D0D]/10 blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
            <h2 className="text-4xl md:text-6xl font-bold mb-8 relative z-10 leading-tight">Quantos projetos você deixou de criar por falta de créditos?</h2>
            <p className="text-xl text-neutral-400 mb-12 relative z-10 max-w-2xl mx-auto">Isso acaba agora. Lovable ilimitado é realidade com <b>LOVABLACK</b>. Crie, teste e hospede sem restrições.</p>
-           <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-[#DC0D0D] text-white hover:bg-[#FF0000] transition-all hover:scale-105 relative z-10 shadow-[0_0_30px_rgba(220,13,13,0.3)] border-0">
-              🔥 QUERO MEU LOVABLACK AGORA
-           </Button>
+           <Dialog>
+             <DialogTrigger asChild>
+               <Button size="lg" className="h-16 px-12 text-xl font-bold rounded-full bg-[#DC0D0D] text-white hover:bg-[#FF0000] transition-all hover:scale-105 relative z-10 shadow-[0_0_30px_rgba(220,13,13,0.3)] border-0">
+                  🔥 QUERO MEU LOVABLACK AGORA
+               </Button>
+             </DialogTrigger>
+             <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
+               <AuthModal initialMode="signup" />
+             </DialogContent>
+           </Dialog>
         </div>
         <div className="mt-20 pt-8 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-center gap-6 text-neutral-400 text-sm">
            <p>© 2026 LOVABLACK. Todos os direitos reservados.</p>
-           <div className="flex gap-8">
-              <a href="#" className="hover:text-neutral-900 transition-colors">Termos de Uso</a>
-              <a href="#" className="hover:text-neutral-900 transition-colors">Privacidade</a>
-           </div>
+            <div className="flex gap-8">
+               <Link to="/admin" className="hover:text-neutral-900 transition-colors">Admin</Link>
+               <a href="#" className="hover:text-neutral-900 transition-colors">Termos de Uso</a>
+               <a href="#" className="hover:text-neutral-900 transition-colors">Privacidade</a>
+            </div>
         </div>
       </footer>
     </div>

@@ -1,0 +1,45 @@
+import { supabase } from "@/integrations/supabase/client";
+
+export const getSubscriptionStatus = async (userId: string) => {
+  const { data, error } = await supabase
+    .from('subscriptions')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) throw error;
+  
+  if (!data) return null;
+
+  const isExpired = new Date(data.expires_at) < new Date();
+  
+  return {
+    ...data,
+    isExpired
+  };
+};
+
+export const getProfile = async (userId: string) => {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const isAdmin = async (userId: string) => {
+  const { data, error } = await supabase
+    .from('user_roles')
+    .select('role')
+    .eq('user_id', userId)
+    .eq('role', 'admin')
+    .maybeSingle();
+
+  if (error) return false;
+  return !!data;
+};
