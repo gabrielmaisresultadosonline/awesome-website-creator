@@ -268,8 +268,8 @@ function Index() {
                     <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
                       <AuthModal 
                         initialMode="signup" 
-                        isTrial={plan.name === "Teste Grátis"} 
-                        onSuccessRedirect={plan.name === "Teste Grátis" ? undefined : {
+                        isTrial={plan.name === "Free Trial"} 
+                        onSuccessRedirect={plan.name === "Free Trial" ? undefined : {
                           planName: plan.name,
                           priceCents: plan.cents,
                           planDurationDays: plan.days
