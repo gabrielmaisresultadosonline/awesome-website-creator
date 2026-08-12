@@ -154,10 +154,14 @@ function Index() {
         </div>
       </section>
 
-      {/* Steps */}
-      <section className="py-24 bg-neutral-900 text-white rounded-[4rem] mx-4">
-        <div className="container mx-auto px-4">
+      {/* Important Info Section */}
+      <section className="py-24 bg-[#080808] text-white rounded-[4rem] mx-4 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
+            <Badge variant="outline" className="mb-4 border-primary/30 text-primary-foreground/80 px-4 py-1">
+              ✨ INFORMAÇÕES IMPORTANTES
+            </Badge>
             <h2 className="text-4xl font-bold mb-4">Como Usar LOVABLACK?</h2>
             <p className="text-neutral-400">Tenha Lovable unlimited em 4 passos simples.</p>
           </div>
@@ -168,12 +172,22 @@ function Index() {
               { s: "03", t: "Ative sua licença", d: "Ativação instantânea com sua chave de acesso." },
               { s: "04", t: "Lovable Unlimited", d: "Pronto! Crie e hospede sem limites de créditos." },
             ].map((step, i) => (
-              <div key={i} className="relative p-6 border border-white/10 rounded-3xl hover:bg-white/5 transition-colors">
-                <span className="text-5xl font-black text-white/10 absolute -top-4 -left-2">{step.s}</span>
-                <h3 className="text-xl font-bold mb-3 mt-4">{step.t}</h3>
+              <div key={i} className="relative p-8 border border-white/10 rounded-3xl bg-white/5 hover:bg-white/10 transition-all group">
+                <span className="text-5xl font-black text-white/10 absolute -top-4 -left-2 group-hover:text-primary/20 transition-colors">{step.s}</span>
+                <h3 className="text-xl font-bold mb-3 mt-4 text-white group-hover:text-primary transition-colors">{step.t}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">{step.d}</p>
               </div>
             ))}
+          </div>
+          
+          <div className="mt-20 p-8 rounded-3xl bg-gradient-to-r from-[#1A1B1A] to-[#080808] border border-white/5">
+            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <Shield className="text-primary" /> Compromisso LOVABLACK
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-neutral-400 text-sm leading-relaxed">
+              <p>O <b>LOVABLACK</b> foi desenvolvido com o propósito de democratizar o acesso à criação de software. Acreditamos que a criatividade não deve ser limitada por créditos ou orçamentos restritos.</p>
+              <p>Nossa tecnologia de <b>Bloqueio de Chat</b> e <b>Prioridade de Requisição</b> garante que você tenha a melhor experiência possível, simulando um ambiente premium sem os custos proibitivos.</p>
+            </div>
           </div>
         </div>
       </section>
