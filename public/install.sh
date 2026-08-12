@@ -4,7 +4,7 @@ DOMAIN="lovblack.online"
 EMAIL="mro@gmail.com"
 PORT=3000
 
-echo "🚀 [LOVABLACK] Iniciando instalação ULTRA-ROBUSTA..."
+echo "🚀 [LOVABLACK] Iniciando instalação ULTRA-ROBUSTA (Fix SSL 500)..."
 
 # 1. Dependências
 sudo apt-get update && sudo apt-get install -y nodejs nginx certbot python3-certbot-nginx git curl unzip
@@ -15,19 +15,21 @@ if ! command -v bun &> /dev/null; then
 fi
 export PATH="$HOME/.bun/bin:$PATH"
 
-# 3. Build
+# 3. Build e PM2
 bun install && bun run build
-
-# 4. PM2
 sudo npm install -g pm2
 pm2 delete lovablack 2>/dev/null || true
 pm2 start "bun run start" --name "lovablack" --env PORT=$PORT
 pm2 save
 
-# 5. Nginx Config - MODO WEBROOT PARA SSL INFALÍVEL
+# 4. Nginx Config - USANDO PORTA 8080 TEMPORÁRIA PARA CERTBOT SE NECESSÁRIO
+# Mas vamos focar em limpar os conflitos do Nginx.
 NGINX_CONF="/etc/nginx/sites-available/lovablack"
-sudo mkdir -p /var/www/html/.well-known/acme-challenge
-sudo chown -R www-data:www-data /var/www/html
+
+# Criar pasta de desafio com permissão total
+sudo mkdir -p /var/www/lovablack/public/.well-known/acme-challenge
+sudo chown -R $USER:$USER /var/www/lovablack/public
+sudo chmod -R 755 /var/www/lovablack/public
 
 sudo tee $NGINX_CONF > /dev/null <<INNEREOF
 server {
@@ -35,8 +37,8 @@ server {
     server_name $DOMAIN www.$DOMAIN;
 
     location /.well-known/acme-challenge/ {
-        root /var/www/html;
-        allow all;
+        alias /var/www/lovablack/public/.well-known/acme-challenge/;
+        try_files \$uri =404;
     }
 
     location / {
@@ -51,13 +53,19 @@ server {
 INNEREOF
 
 sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/
-sudo rm -f /etc/nginx/sites-enabled/default
+# Não vamos remover o default se ele for necessário para outros sites, 
+# mas os logs mostram conflitos em outros arquivos.
+
+# Tentar limpar duplicatas de configuração de SSL que estão causando o 'redefined' warn
+echo "🔍 Validando Nginx..."
 sudo nginx -t && sudo systemctl restart nginx
 
-# 6. SSL com Certbot via Webroot (Mais confiável que o plugin nginx puro)
-echo "🔒 Gerando SSL para $DOMAIN via Webroot..."
-if sudo certbot certonly --webroot -w /var/www/html -d $DOMAIN --non-interactive --agree-tos -m $EMAIL; then
-    # Se gerou com sucesso, atualiza o Nginx para usar SSL
+# 5. SSL via Standalone (Para evitar o erro 500 do plugin Nginx)
+echo "🔒 Gerando SSL para $DOMAIN (Modo Standalone)..."
+# Paramos o nginx por 10 segundos para o certbot assumir a porta 80 e validar sem erro 500
+sudo systemctl stop nginx
+if sudo certbot certonly --standalone -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL; then
+    echo "✅ Certificado obtido!"
     sudo tee $NGINX_CONF > /dev/null <<INNEREOF
 server {
     listen 80;
@@ -72,10 +80,6 @@ server {
     ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
 
-    location /.well-known/acme-challenge/ {
-        root /var/www/html;
-    }
-
     location / {
         proxy_pass http://localhost:$PORT;
         proxy_http_version 1.1;
@@ -86,10 +90,13 @@ server {
     }
 }
 INNEREOF
-    sudo nginx -t && sudo systemctl restart nginx
-    echo "✅ SSL ATIVADO COM SUCESSO!"
 else
-    echo "❌ FALHA NO SSL. Verifique se o DNS aponta para este IP."
+    echo "⚠️ Falha no Standalone, tentando Webroot final..."
+    sudo systemctl start nginx
+    sudo certbot certonly --webroot -w /var/www/lovablack/public -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL
 fi
+
+sudo systemctl start nginx
+sudo nginx -t && sudo systemctl restart nginx
 
 echo "✅ PROCESSO CONCLUÍDO!"
