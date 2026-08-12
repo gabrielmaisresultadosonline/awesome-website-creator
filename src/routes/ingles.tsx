@@ -11,72 +11,72 @@ import logoFull from "@/assets/logo-full.png.asset.json";
 export const Route = createFileRoute("/ingles")({
   component: Index,
   head: () => ({
-    title: "LOVABLACK - Créditos Infinitos para Lovable",
+    title: "LOVABLACK - Unlimited Credits for Lovable",
     meta: [
-      { name: "description", content: "Não gaste créditos com IA lovable. Utilize Lovablack Extensao e tenha créditos infinitos. Crie sem restrições com a melhor extensão do mercado." },
-      { property: "og:title", content: "LOVABLACK - Créditos Infinitos para Lovable" },
-      { property: "og:description", content: "O fim dos limites de créditos no Lovable. Utilize Lovablack Extensao e tenha créditos infinitos." }
+      { name: "description", content: "Don't spend credits with Lovable AI. Use Lovablack Extension and have infinite credits. Create without restrictions with the best extension on the market." },
+      { property: "og:title", content: "LOVABLACK - Unlimited Credits for Lovable" },
+      { property: "og:description", content: "The end of credit limits on Lovable. Use Lovablack Extension and have infinite credits." }
     ]
   })
 });
 
 function Index() {
   const benefits = [
-    { title: "Lovable Unlimited", desc: "Use o Lovable ilimitado e de graça. Crie quantos projetos quiser, sem limite de créditos.", icon: Heart },
-    { title: "Velocidade Máxima", desc: "Sem filas, sem espera. Suas requisições são processadas com prioridade total.", icon: Zap },
-    { title: "Hospedagem Inclusa", desc: "Publique e hospede seus projetos gratuitamente. Lovable com hospedagem sem custo extra.", icon: Globe },
-    { title: "Grátis Pra Sempre", desc: "Lovable grátis pra sempre com plano acessível. Sem surpresas, sem limites.", icon: Star },
+    { title: "Lovable Unlimited", desc: "Use Lovable unlimited and for free. Create as many projects as you want, without credit limits.", icon: Heart },
+    { title: "Maximum Speed", desc: "No queues, no waiting. Your requests are processed with total priority.", icon: Zap },
+    { title: "Hosting Included", desc: "Publish and host your projects for free. Lovable with hosting at no extra cost.", icon: Globe },
+    { title: "Free Forever", desc: "Lovable free forever with an affordable plan. No surprises, no limits.", icon: Star },
   ];
 
   const features = [
-    { title: "Bloqueio do Chat", desc: "Bloqueie o chat da Lovable e evite que seus créditos sejam consumidos.", icon: MessageSquare },
-    { title: "Envio de Arquivos", desc: "Envie qualquer tipo de arquivo diretamente no chat para usar nos seus projetos.", icon: FileText },
-    { title: "Envio de Áudio", desc: "Grave e envie áudios para descrever o que precisa — sem digitar.", icon: Mic },
-    { title: "IA para Prompts", desc: "IA integrada que melhora seus prompts automaticamente.", icon: Sparkles },
-    { title: "Novo Projeto Grátis", desc: "Crie novos projetos sem gastar nenhum crédito.", icon: PlusCircle },
-    { title: "Tirar Marca d'Água", desc: "Remova a marca d'água da Lovable para um visual profissional.", icon: Eraser },
-    { title: "Hospedagem Grátis", desc: "Publique e hospede seu projeto gratuitamente.", icon: Globe },
+    { title: "Chat Blocking", desc: "Block the Lovable chat and prevent your credits from being consumed.", icon: MessageSquare },
+    { title: "File Upload", desc: "Send any type of file directly in the chat to use in your projects.", icon: FileText },
+    { title: "Audio Send", desc: "Record and send audios to describe what you need — without typing.", icon: Mic },
+    { title: "AI for Prompts", desc: "Integrated AI that improves your prompts automatically.", icon: Sparkles },
+    { title: "New Free Project", desc: "Create new projects without spending any credits.", icon: PlusCircle },
+    { title: "Remove Watermark", desc: "Remove the Lovable watermark for a professional look.", icon: Eraser },
+    { title: "Free Hosting", desc: "Publish and host your project for free.", icon: Globe },
   ];
 
   const plans = [
     { 
-      name: "Teste Grátis", 
-      price: "R$ 0", 
-      period: "20 minutos", 
-      features: ["Acesso total", "Ativação instantânea", "Sem compromisso"],
-      button: "COMEÇAR AGORA",
+      name: "Free Trial", 
+      price: "$ 0", 
+      period: "20 minutes", 
+      features: ["Full access", "Instant activation", "No commitment"],
+      button: "START NOW",
       popular: false,
       cents: 0,
       days: 0
     },
     { 
-      name: "Mensal", 
-      price: "R$ 47", 
-      period: "por mês", 
-      features: ["Prompts ilimitados", "Todos os navegadores", "Hospedagem inclusa", "Suporte WhatsApp"],
-      button: "ASSINAR AGORA",
+      name: "Monthly", 
+      price: "$ 9", 
+      period: "per month", 
+      features: ["Unlimited prompts", "All browsers", "Hosting included", "WhatsApp support"],
+      button: "SUBSCRIBE NOW",
       popular: false,
-      cents: 4700,
+      cents: 900,
       days: 30
     },
     { 
-      name: "Semestral", 
-      price: "R$ 147", 
-      period: "6 meses", 
-      features: ["Melhor custo-benefício", "Prompts ilimitados", "Hospedagem inclusa", "Suporte Prioritário"],
-      button: "GARANTIR AGORA",
+      name: "6 Months", 
+      price: "$ 27", 
+      period: "6 months", 
+      features: ["Best value for money", "Unlimited prompts", "Hosting included", "Priority Support"],
+      button: "SECURE NOW",
       popular: true,
-      cents: 14700,
+      cents: 2700,
       days: 180
     },
     { 
-      name: "Anual", 
-      price: "R$ 397", 
-      period: "365 dias", 
-      features: ["Acesso total", "Todas atualizações", "Hospedagem inclusa", "Suporte VIP"],
-      button: "ASSINAR ANUAL",
+      name: "Annual", 
+      price: "$ 77", 
+      period: "365 days", 
+      features: ["Full access", "All updates", "Hosting included", "VIP Support"],
+      button: "SUBSCRIBE ANNUAL",
       popular: false,
-      cents: 39700,
+      cents: 7700,
       days: 365
     }
   ];
@@ -92,10 +92,10 @@ function Index() {
           </Link>
         </div>
         <h1 className="text-4xl md:text-7xl font-black text-[#1A1B1A] mb-6 tracking-tight leading-[1.1]">
-          Não gaste créditos com IA lovable.
+          Don't spend credits with Lovable AI.
         </h1>
         <p className="text-xl md:text-3xl text-neutral-700 max-w-4xl mx-auto mb-10 font-medium">
-          Utilize Lovablack Extensao e tenha créditos infinitos.
+          Use Lovablack Extension and get infinite credits.
         </p>
         
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
