@@ -107,7 +107,7 @@ function Dashboard() {
       customerName: profile?.full_name || user.email || 'Cliente',
       customerEmail: user.email || '',
       customerPhone: profile?.whatsapp || '',
-      redirectUrl: `${origin}/dashboard?payment=success`,
+      redirectUrl: `${origin}/thanks`,
       webhookUrl: `${origin}/api/public/webhook-infinitepay`,
     });
   };
