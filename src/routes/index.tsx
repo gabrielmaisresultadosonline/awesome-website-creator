@@ -264,7 +264,7 @@ function Index() {
                 <Star className="w-8 h-8 text-neutral-200 absolute top-8 right-8" />
                 <p className="text-lg text-neutral-700 mb-8 italic">"{t.text}"</p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center font-bold">{t.initials}</div>
+                  <div className="w-12 h-12 rounded-full bg-[#1A1B1A] text-white flex items-center justify-center font-bold shadow-md">{t.initials}</div>
                   <div>
                     <h4 className="font-bold text-neutral-900">{t.name}</h4>
                     <p className="text-sm text-neutral-500">{t.role}</p>
