@@ -45,7 +45,9 @@ function Index() {
       period: "20 minutos", 
       features: ["Acesso total", "Ativação instantânea", "Sem compromisso"],
       button: "COMEÇAR AGORA",
-      popular: false
+      popular: false,
+      cents: 0,
+      days: 0
     },
     { 
       name: "Mensal", 
@@ -53,7 +55,9 @@ function Index() {
       period: "por mês", 
       features: ["Prompts ilimitados", "Todos os navegadores", "Hospedagem inclusa", "Suporte WhatsApp"],
       button: "ASSINAR AGORA",
-      popular: false
+      popular: false,
+      cents: 4700,
+      days: 30
     },
     { 
       name: "Semestral", 
@@ -61,7 +65,9 @@ function Index() {
       period: "6 meses", 
       features: ["Melhor custo-benefício", "Prompts ilimitados", "Hospedagem inclusa", "Suporte Prioritário"],
       button: "GARANTIR AGORA",
-      popular: true
+      popular: true,
+      cents: 14700,
+      days: 180
     },
     { 
       name: "Anual", 
@@ -69,9 +75,12 @@ function Index() {
       period: "365 dias", 
       features: ["Acesso total", "Todas atualizações", "Hospedagem inclusa", "Suporte VIP"],
       button: "ASSINAR ANUAL",
-      popular: false
+      popular: false,
+      cents: 39700,
+      days: 365
     }
   ];
+
 
   return (
     <div className="min-h-screen font-sans selection:bg-primary/20" style={{ backgroundColor: "#F7F1EB" }}>
@@ -254,9 +263,18 @@ function Index() {
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="p-0 border-0 bg-transparent max-w-md shadow-none">
-                      <AuthModal initialMode="signup" isTrial={plan.name === "Teste Grátis"} />
+                      <AuthModal 
+                        initialMode="signup" 
+                        isTrial={plan.name === "Teste Grátis"} 
+                        onSuccessRedirect={plan.name === "Teste Grátis" ? undefined : {
+                          planName: plan.name,
+                          priceCents: plan.cents,
+                          planDurationDays: plan.days
+                        }}
+                      />
                     </DialogContent>
                   </Dialog>
+
                 </CardFooter>
               </Card>
             ))}
