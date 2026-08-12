@@ -210,11 +210,11 @@ function Index() {
           
           <div className="mt-20 p-8 rounded-3xl bg-gradient-to-r from-[#1A1B1A] to-[#080808] border border-white/5">
             <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <Shield className="text-primary" /> Compromisso LOVABLACK
+              <Shield className="text-primary" /> LOVABLACK Commitment
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-neutral-400 text-sm leading-relaxed">
-              <p>O <b>LOVABLACK</b> foi desenvolvido com o propósito de democratizar o acesso à criação de software. Acreditamos que a criatividade não deve ser limitada por créditos ou orçamentos restritos.</p>
-              <p>Nossa tecnologia de <b>Bloqueio de Chat</b> e <b>Prioridade de Requisição</b> garante que você tenha a melhor experiência possível, simulando um ambiente premium sem os custos proibitivos.</p>
+              <p><b>LOVABLACK</b> was developed with the purpose of democratizing access to software creation. We believe that creativity should not be limited by credits or restricted budgets.</p>
+              <p>Our <b>Chat Blocking</b> and <b>Request Priority</b> technology ensures you have the best possible experience, simulating a premium environment without the prohibitive costs.</p>
             </div>
           </div>
         </div>
