@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { getSubscriptionStatus, getProfile, getAppSettings } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Download, PlayCircle, Clock, AlertTriangle, CreditCard, Check, Zap } from 'lucide-react';
+import { Download, PlayCircle, Clock, AlertTriangle, CreditCard, Check } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useEffect, useState } from 'react';
 import { createPaymentLink } from '@/lib/payments.functions';
@@ -89,6 +89,7 @@ function Dashboard() {
   ];
 
   const handlePayment = (plan: any) => {
+    const origin = window.location.origin;
     paymentMutation.mutate({
       planName: plan.name,
       priceCents: plan.cents,
@@ -96,8 +97,8 @@ function Dashboard() {
       customerName: profile?.full_name || user.email || 'Cliente',
       customerEmail: user.email || '',
       customerPhone: profile?.whatsapp || '',
-      redirectUrl: \`\${window.location.origin}/dashboard?payment=success\`,
-      webhookUrl: \`\${window.location.origin}/api/public/webhook-infinitepay\`,
+      redirectUrl: `${origin}/dashboard?payment=success`,
+      webhookUrl: `${origin}/api/public/webhook-infinitepay`,
     });
   };
 
@@ -170,7 +171,6 @@ function Dashboard() {
           </Card>
         )}
 
-        {/* Purchase Area (Always visible if not annual, or if expired) */}
         {(!isActive || sub?.type !== 'annual') && (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-[#1A1B1A] flex items-center gap-2">
